@@ -23,7 +23,7 @@
         "javascriptreact",
         { "language": "vue", "autoFix": true }
       ],
-      "commentAnchors.workspace.enabled": true,
+    "commentAnchors.workspace.enabled": true,
     "commentAnchors.workspace.excludeFiles": "**/{node_modules,.git,.idea,target,out,build,vendor}/**/*" ,   
     "commentAnchors.tags": [
         {"tag": "ANCHOR", "iconColor": "default", "highlightColor": "#A8C023", "backgroundColor": "#49511d", "scope": "file"},

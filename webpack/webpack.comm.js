@@ -4,21 +4,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
-	//   module: {
-	//     rules: [
-	//         {
-	//             test: /\.vue?$/,
-	//             exclude: /(node_modules)/,
-	//             use: 'vue-loader'
-	//         },
-	//         {
-	//             test: /\.js?$/,
-	//             exclude: /(node_modules)/,
-	//             use: 'babel-loader'
-	//         }
-	//     ]
-	// },
-
+	externals: {
+		// global app config object
+		config: JSON.stringify({
+			apiUrl: 'http://localhost:4000'
+		})
+	},
 	entry: {
 		app: Path.resolve(__dirname, '../src/index.js')
 	},

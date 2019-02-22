@@ -1,4 +1,4 @@
-//const path = require('path');
+const Path = require('path');
 const Webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.comm.js');
