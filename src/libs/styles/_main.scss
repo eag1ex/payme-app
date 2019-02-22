@@ -1,7 +1,28 @@
-// 
+//
+a {
+	cursor: pointer;
+}
 
-$body-color: blue;
-
-body {
-  color: $body-color;
+#template-list {
+	.md-field {
+		width: 100%;
+	}
+	.md-table-fixed-header {
+		padding-right: 0px !important;
+		.md-table-fixed-header-container {
+			table {
+				width: 100% !important;
+				th {
+					text-align: left !important;
+					width: 24% !important;
+				}
+			}
+		}
+	}
+	.md-content.md-table-content {
+		td {
+			width: 24% !important;
+			text-align: left !important;
+		}
+	}
 }
