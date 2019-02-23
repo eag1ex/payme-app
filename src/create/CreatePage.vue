@@ -1,211 +1,139 @@
 <template>
-  <div>
-    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
-      <md-table-toolbar>
-        <div class="md-toolbar-section-start">
-          <h1 class="md-title">Users</h1>
-        </div>
+  <div id="template-create" class="bg-inverse m-2 p-3">
+    <div class="w-100">
+      <h1 class="md-headline mb-2">New Invoice</h1>
+    </div>
+    <form novalidate class="md-layout" @submit.prevent="validateInvoice">
+      <md-field :class="getValidationClass('name')">
+        <label>Name</label>
+        <md-input
+          name="full-name"
+          id="full-name"
+          autocomplete="given-name"
+          v-model="form.name"
+          :disabled="sending"
+        />
+        <span class="md-error" v-if="!$v.form.name.required">required</span>
+      </md-field>
 
-        <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable"/>
-        </md-field>
-      </md-table-toolbar>
+      <md-field :class="getValidationClass('value')">
+        <label>Value</label>
+        <span class="md-prefix">$</span>
+        <md-input
+          name="amount-value"
+          id="amount-value"
+          autocomplete="given-amount"
+          v-model.number="form.value"
+          :disabled="sending"
+        />
+        <span class="md-error" v-if="!$v.form.value.required">required</span>
+      </md-field>
 
-      <md-table-empty-state
-        md-label="No users found"
-        :md-description="`No user found for this '${search}' query. Try a different search term or create a new user.`"
-      >
-        <md-button class="md-primary md-raised" @click="newUser">Create New User</md-button>
-      </md-table-empty-state>
+      <md-field>
+        <label>
+          <span class="md-caption">Date:&nbsp;{{niceDate(date)}}</span>
+        </label>
+      </md-field>
 
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
-        <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
-        <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
-        <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
-        <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
-      </md-table-row>
-    </md-table>
+      <input v-model="date" type="hidden">
+      <md-button type="submit" class="md-primary p-0 m-0" :disabled="sending">Create Invoice</md-button>
+      <md-snackbar :md-active.sync="invoiceSaved">Invoice {{ lastInvoice }} saved!</md-snackbar>
+    </form>
   </div>
 </template>
 
 <script>
-const toLower = text => {
-  return text.toString().toLowerCase();
-};
-
-const searchByName = (items, term) => {
-  if (term) {
-    return items.filter(item => toLower(item.name).includes(toLower(term)));
-  }
-
-  return items;
-};
+import { filters } from "../libs/_services";
+import { validationMixin } from "vuelidate";
+import { required } from "vuelidate/lib/validators";
 
 export default {
-  name: "TableSearch",
+  name: "NewInvoice",
+  mixins: [validationMixin],
   data: () => ({
-    search: null,
-    searched: [],
-    users: [
-      {
-        id: 1,
-        name: "Shawna Dubbin",
-        email: "sdubbin0@geocities.com",
-        gender: "Male",
-        title: "Assistant Media Planner"
-      },
-      {
-        id: 2,
-        name: "Odette Demageard",
-        email: "odemageard1@spotify.com",
-        gender: "Female",
-        title: "Account Coordinator"
-      },
-      {
-        id: 3,
-        name: "Vera Taleworth",
-        email: "vtaleworth2@google.ca",
-        gender: "Male",
-        title: "Community Outreach Specialist"
-      },
-      {
-        id: 4,
-        name: "Lonnie Izkovitz",
-        email: "lizkovitz3@youtu.be",
-        gender: "Female",
-        title: "Operator"
-      },
-      {
-        id: 5,
-        name: "Thatcher Stave",
-        email: "tstave4@reference.com",
-        gender: "Male",
-        title: "Software Test Engineer III"
-      },
-      {
-        id: 6,
-        name: "Karim Chipping",
-        email: "kchipping5@scribd.com",
-        gender: "Female",
-        title: "Safety Technician II"
-      },
-      {
-        id: 7,
-        name: "Helge Holyard",
-        email: "hholyard6@howstuffworks.com",
-        gender: "Female",
-        title: "Internal Auditor"
-      },
-      {
-        id: 8,
-        name: "Rod Titterton",
-        email: "rtitterton7@nydailynews.com",
-        gender: "Male",
-        title: "Technical Writer"
-      },
-      {
-        id: 9,
-        name: "Gawen Applewhite",
-        email: "gapplewhite8@reverbnation.com",
-        gender: "Female",
-        title: "GIS Technical Architect"
-      },
-      {
-        id: 10,
-        name: "Nero Mulgrew",
-        email: "nmulgrew9@plala.or.jp",
-        gender: "Female",
-        title: "Staff Scientist"
-      },
-      {
-        id: 11,
-        name: "Cybill Rimington",
-        email: "crimingtona@usnews.com",
-        gender: "Female",
-        title: "Assistant Professor"
-      },
-      {
-        id: 12,
-        name: "Maureene Eggleson",
-        email: "megglesonb@elpais.com",
-        gender: "Male",
-        title: "Recruiting Manager"
-      },
-      {
-        id: 13,
-        name: "Cortney Caulket",
-        email: "ccaulketc@cbsnews.com",
-        gender: "Male",
-        title: "Safety Technician IV"
-      },
-      {
-        id: 14,
-        name: "Selig Swynfen",
-        email: "sswynfend@cpanel.net",
-        gender: "Female",
-        title: "Environmental Specialist"
-      },
-      {
-        id: 15,
-        name: "Ingar Raggles",
-        email: "iragglese@cbc.ca",
-        gender: "Female",
-        title: "VP Sales"
-      },
-      {
-        id: 16,
-        name: "Karmen Mines",
-        email: "kminesf@topsy.com",
-        gender: "Male",
-        title: "Administrative Officer"
-      },
-      {
-        id: 17,
-        name: "Salome Judron",
-        email: "sjudrong@jigsy.com",
-        gender: "Male",
-        title: "Staff Scientist"
-      },
-      {
-        id: 18,
-        name: "Clarinda Marieton",
-        email: "cmarietonh@theatlantic.com",
-        gender: "Male",
-        title: "Paralegal"
-      },
-      {
-        id: 19,
-        name: "Paxon Lotterington",
-        email: "plotteringtoni@netvibes.com",
-        gender: "Female",
-        title: "Marketing Assistant"
-      },
-      {
-        id: 20,
-        name: "Maura Thoms",
-        email: "mthomsj@webeden.co.uk",
-        gender: "Male",
-        title: "Actuary"
-      }
-    ]
-  }),
-  methods: {
-    newUser() {
-      window.alert("Noop");
+    form: {
+      name: null,
+      value: null,
+      date: null
     },
-    searchOnTable() {
-      this.searched = searchByName(this.users, this.search);
+    invoiceSaved: false,
+    sending: false,
+    lastInvoice: null,
+    value: 0,
+    name: ""
+    // date: null
+  }),
+
+  validations: {
+    form: {
+      name: {
+        required
+      },
+      value: {
+        required
+      },
+      date: {
+        required
+      }
     }
   },
-  created() {
-    this.searched = this.users;
+
+  computed: {
+    date: {
+      get: () => {
+        return new Date().getTime();
+      }
+    }
+    // date() {
+    //   this.date = new Date().getTime();
+    // }
+  },
+  methods: {
+    getValidationClass(fieldName) {
+      const field = this.$v.form[fieldName];
+
+      if (field) {
+        return {
+          "md-invalid": field.$invalid && field.$dirty
+        };
+      }
+    },
+    niceDate(number) {
+      return filters.niceDate(number);
+    },
+    clearForm() {
+      this.$v.$reset();
+      this.form.name = null;
+      this.form.value = null;
+      this.form.date = null;
+      this.date = this.niceDate(new Date().getTime()); // non interctive value
+    },
+    saveInvoice() {
+      this.sending = true;
+      //console.log("sending invoice", `${this.form.name} ${this.form.value}`);
+      // Instead of this timeout, here you can call your API
+      window.setTimeout(() => {
+        this.lastInvoice = `${this.form.name}, $${this.form.value}`;
+        this.invoiceSaved = true;
+        this.sending = false;
+        this.clearForm();
+      }, 1500);
+    },
+    validateInvoice() {
+      this.form.date = this.date;
+
+      this.$v.$touch();
+      console.log("validateInvoice invoice", !this.$v.$invalid);
+      if (!this.$v.$invalid) {
+        this.saveInvoice();
+      }
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.md-field {
-  max-width: 300px;
+.md-field:last-child {
+  margin-bottom: 40px;
 }
 </style>

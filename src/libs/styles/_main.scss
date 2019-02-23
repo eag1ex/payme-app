@@ -1,9 +1,16 @@
-//
 a {
 	cursor: pointer;
 }
+#template-list-item {
+	overflow: hidden;
+}
 
 #template-list {
+	.row-item {
+		td {
+			cursor: pointer;
+		}
+	}
 	.md-field {
 		width: 100%;
 	}
@@ -25,4 +32,19 @@ a {
 			text-align: left !important;
 		}
 	}
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition-property: opacity;
+	transition-duration: .25s;
+}
+
+.fade-enter-active {
+	transition-delay: .25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+	opacity: 0;
 }

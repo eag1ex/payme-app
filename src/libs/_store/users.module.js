@@ -7,7 +7,6 @@ const state = {
 const actions = {
 	getAll({ commit }) {
 		commit('getAllRequest');
-
 		userService.getAll().then((users) => commit('getAllSuccess', users), (error) => commit('getAllFailure', error));
 	},
 

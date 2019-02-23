@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-let users = [
+let invoices = [
 	{
 		id: 0,
 		name: 'Shawna Dubbin',
@@ -68,4 +68,4 @@ let users = [
 	}
 ];
 
-export { users };
+export { invoices };

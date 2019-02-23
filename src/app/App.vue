@@ -3,7 +3,9 @@
     <div class="row d-flex justify-content-center">
       <div class="col-sm-6 col-md-8 col-lg-10">
         <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
-        <router-view></router-view>
+        <transition name="fade">
+          <router-view></router-view>
+        </transition>
       </div>
     </div>
   </div>
@@ -26,6 +28,7 @@ export default {
   },
   watch: {
     $route(to, from) {
+      console.log("from/to", from, to);
       // clear alert on location change
       this.clearAlert();
     }
