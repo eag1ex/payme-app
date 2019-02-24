@@ -1,11 +1,6 @@
 <template>
-  <div id="template-list" class="bg-inverse m-2 p-3">
-    <div class="w-100">
-      <div class="d-flex justify-content-between">
-        <h1 class="md-headline my-3">Invoices</h1>
-        <md-button class="md-raised mx-0 my-3" @click="goTo()">Create Invoice</md-button>
-      </div>
-    </div>
+  <div id="template-list" class="bg-inverse m-2 p-3" v-cloak>
+    <top-title v-bind:location="'/create'" v-bind:title="'Invoices'"></top-title>
     <spinner v-bind:appLoading="loading"></spinner>
     <md-table
       v-if="!loading"

@@ -1,12 +1,6 @@
 import * as moment from 'moment';
 let invoices = [
 	{
-		id: 0,
-		name: 'Shawna Dubbin',
-		value: 1235,
-		date: new Date().getTime()
-	},
-	{
 		id: 1,
 		name: 'Odette Demageard',
 		value: 300,
@@ -64,6 +58,12 @@ let invoices = [
 		id: 10,
 		name: 'Cybill Rimington',
 		value: 2356,
+		date: new Date().getTime()
+	},
+	{
+		id: 11,
+		name: 'Shawna Dubbin',
+		value: 1235,
 		date: new Date().getTime()
 	}
 ];

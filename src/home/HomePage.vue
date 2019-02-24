@@ -1,46 +1,55 @@
 <template>
-  <div>
-    <h1>Hi {{account.user.firstName}}!</h1>
-    <p>You're logged in with Vue + Vuex & JWT!!</p>
-    <h3>Users from secure api end point:</h3>
-    <em v-if="users.loading">Loading users...</em>
-    <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span>
-    <ul v-if="users.items">
-      <li v-for="user in users.items" :key="user.id">
-        {{user.firstName + ' ' + user.lastName}}
-        <span v-if="user.deleting">
-          <em>- Deleting...</em>
-        </span>
-        <span v-else-if="user.deleteError" class="text-danger">- ERROR: {{user.deleteError}}</span>
-        <span v-else>-
-          <a @click="deleteUser(user.id)" class="text-danger">Delete</a>
-        </span>
-      </li>
-    </ul>
-    <p>
-      <router-link to="/login">Logout</router-link>
-    </p>
+  <div id="template-home" class="bg-inverse m-2 p-3" v-cloak>
+    <!-- <top-title v-bind:title="'Welcome'"></top-title> -->
+    <spinner v-bind:appLoading="loading"></spinner>
+    <md-card class="w-75 p-5" v-if="!loading">
+      <md-card-header>
+        <div class="md-title">
+          Welcome to
+          <span class="text-secondary logo">PAYME</span> Application
+        </div>
+      </md-card-header>
+
+      <md-card-content>
+        This is an invoice application,
+        you can create new or view already existing invoices.
+      </md-card-content>
+
+      <md-card-actions md-alignment="space-between">
+        <md-button class="md-raised ml-2 my-3 md-primary" @click="goTo()">Create Invoice</md-button>
+      </md-card-actions>
+    </md-card>
   </div>
 </template>
 
-<script>
-import { mapState, mapActions } from "vuex";
+<style lang="scss" scoped>
+.md-card {
+  span.logo {
+    font-weight: bold;
+  }
+  background: unset !important;
+  box-shadow: unset !important;
+  margin: 4px;
+  display: inline-block;
+  vertical-align: top;
+  .md-card-actions {
+  }
+}
+</style>
 
+<script>
 export default {
-  computed: {
-    ...mapState({
-      account: state => state.account,
-      users: state => state.users.all
-    })
+  name: "HomePage",
+  data: {
+    loading: true
   },
-  created() {
-    this.getAllUsers();
+  created: function() {
+    this.loading = false;
   },
   methods: {
-    ...mapActions("users", {
-      getAllUsers: "getAll",
-      deleteUser: "delete"
-    })
+    goTo() {
+      this.$router.push("/create");
+    }
   }
 };
 </script>

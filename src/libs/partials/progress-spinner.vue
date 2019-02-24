@@ -34,14 +34,14 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(48, 48, 48, 0.7);
     position: fixed;
     left: 0;
     top: 0;
   }
   .md-progress-spinner {
     z-index: 1111;
-    top: 25%;
+    top: 35%;
     left: 50%;
     right: 50%;
     position: fixed;

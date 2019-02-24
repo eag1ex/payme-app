@@ -12,9 +12,14 @@ import { router } from './libs';
 import App from './app/App';
 import { configureFakeBackend } from './libs';
 
-/// partials
+// partials
 import Spinner from './libs/partials/progress-spinner';
+import TopNav from './libs/partials/top-nav';
+import TopTitle from './libs/partials/top-title';
 Vue.component('spinner', Spinner);
+Vue.component('top-nav', TopNav);
+Vue.component('top-title', TopTitle);
+// end
 
 Vue.use(VeeValidate);
 //Vue.use(BootstrapVue);

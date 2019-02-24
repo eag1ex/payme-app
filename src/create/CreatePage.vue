@@ -1,8 +1,6 @@
 <template>
   <div id="template-create" class="bg-inverse m-2 p-3">
-    <div class="w-100">
-      <h1 class="md-headline mb-2">New Invoice</h1>
-    </div>
+    <top-title v-bind:title="'New Invoice'"></top-title>
     <spinner v-bind:appLoading="loading"></spinner>
     <div v-if="!loading">
       <form novalidate class="md-layout" @submit.prevent="validateInvoice">
@@ -37,9 +35,9 @@
           </label>
         </md-field>
 
-        <md-card-actions>
-          <md-button @click="goBack()" class="md-secondary p-0 m-0">Back</md-button>
-          <md-button type="submit" class="md-primary p-0 m-0" :disabled="sending">Create Invoice</md-button>
+        <md-card-actions class="pl-0">
+          <md-button type="submit" class="md-primary p-0 ml-0 md-raised" :disabled="sending">Create</md-button>
+          <md-button @click="goBack()" class="md-secondary p-0 mx-3">Back</md-button>
         </md-card-actions>
         <input v-model="date" type="hidden">
         <md-snackbar :md-active.sync="invoiceSaved">Invoice {{ lastInvoice }} saved!</md-snackbar>
@@ -86,9 +84,7 @@ export default {
     }
   },
   created: function() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
+    this.loading = false;
 
     this.$store.subscribe((mutation, state) => {
       if (mutation.type.includes("invoice/addInvoiceSuccess")) {
@@ -141,39 +137,15 @@ export default {
     }
   }
 };
-
-/**
- export default {
-    data () {
-        return {
-            user: {
-                firstName: '',
-                lastName: '',
-                username: '',
-                password: ''
-            },
-            submitted: false
-        }
-    },
-    computed: {
-        ...mapState('account', ['status'])
-    },
-    methods: {
-        ...mapActions('account', ['register']),
-        handleSubmit(e) {
-            this.submitted = true;
-            this.$validator.validate().then(valid => {
-                if (valid) {
-                    this.register(this.user);
-                }
-            });
-        }
-    }
-};
- */
 </script>
 
 <style lang="scss" scoped>
+.md-card-actions {
+  position: relative;
+  top: 80px;
+  left: -15px;
+}
+
 .md-field:last-child {
   margin-bottom: 40px;
 }

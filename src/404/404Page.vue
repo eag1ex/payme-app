@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="template-list-item" class="bg-inverse m-2 p-3">
+    <div id="template-list-item" class="bg-inverse m-2 p-3" v-cloak>
       <div class="w-100">
         <h1 class="md-headline mb-2">{{message}}</h1>
       </div>

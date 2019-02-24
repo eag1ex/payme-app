@@ -1,12 +1,15 @@
 <template>
-  <div class="container-fluid" id="app-payme">
-    <div class="row d-flex justify-content-center">
-      <div class="col-sm-6 col-md-8 col-lg-10">
-        <div v-if="alert.message" :class="`alert ${alert.type} p-3`">{{alert.message}}</div>
-        <transition name="fade" mode="out-in">
-          <router-view></router-view>
-        </transition>
-        <!-- <spinner v-bind:appLoading="!loading"></spinner> -->
+  <div>
+    <top-nav></top-nav>
+    <div class="container-fluid" id="app-payme">
+      <div class="row d-flex justify-content-center">
+        <div class="col-sm-6 col-md-8 col-lg-10">
+          <div v-if="alert.message" :class="`alert ${alert.type} p-3`">{{alert.message}}</div>
+          <transition name="fade" mode="out-in" v-cloak>
+            <router-view></router-view>
+          </transition>
+          <!-- <spinner v-bind:appLoading="!loading"></spinner> -->
+        </div>
       </div>
     </div>
   </div>

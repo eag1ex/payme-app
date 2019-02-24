@@ -1,13 +1,7 @@
 <template>
   <div id="template-list-item" class="bg-inverse m-2 p-3">
-    <div class="w-100">
-      <div class="d-flex justify-content-between">
-        <h1 class="md-headline my-3">Invoiced</h1>
-        <md-button class="md-raised mx-0 my-3" @click="goTo()">Create Invoice</md-button>
-      </div>
-    </div>
+    <top-title v-bind:location="'/create'" v-bind:title="'Invoiced'"></top-title>
     <spinner v-bind:appLoading="loading"></spinner>
-
     <md-card md-with-hover class="w-100" v-if="!loading && item">
       <md-ripple>
         <md-card-header>
@@ -26,10 +20,10 @@
         </md-card-header>
 
         <!-- <md-card-content>Dolores, sed accusantium quasi non.</md-card-content> -->
-        <md-card-actions>
-          <md-button @click="goBack()">back</md-button>
-        </md-card-actions>
       </md-ripple>
+      <md-card-actions md-alignment="space-between" class="pl-0">
+        <md-button @click="goBack()" class="md-secondary p-0 ml-0 md-raised">back</md-button>
+      </md-card-actions>
     </md-card>
   </div>
 </template>
@@ -94,13 +88,6 @@ export default {
       return filters.niceDate(number);
     }
   }
-  // watch: {
-  //   $route: function() {
-  //     this.fetchData().then(function() {
-  //       console.log("page loaded", this.invoice.all);
-  //     });
-  //   }
-  // }
 };
 </script>
 
@@ -119,9 +106,16 @@ export default {
   }
 }
 .md-card {
+  background: unset !important;
+  box-shadow: unset !important;
   width: 320px;
   margin: 4px;
   display: inline-block;
   vertical-align: top;
+  .md-card-actions {
+    position: relative;
+    top: 80px;
+    left: -20px;
+  }
 }
 </style>

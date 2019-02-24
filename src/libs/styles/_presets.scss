@@ -1,0 +1,33 @@
+a {
+	cursor: pointer;
+}
+
+.alert-success {
+	text-align: center;
+}
+.alert-danger {
+	text-align: center;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition-property: opacity;
+	transition-duration: .25s;
+}
+
+.fade-enter-active {
+	transition-delay: .25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+	opacity: 0;
+}
+
+.fade-transition {
+	transition: opacity .3s ease;
+}
+.fade-enter,
+.fade-leave {
+	opacity: 0;
+}
