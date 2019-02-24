@@ -1,22 +1,28 @@
 <template>
   <div id="template-list-item" class="bg-inverse m-2 p-3">
     <div class="w-100">
-      <h1 class="md-headline mb-2">Item view</h1>
+      <div class="d-flex justify-content-between">
+        <h1 class="md-headline my-3">Invoiced</h1>
+        <md-button class="md-raised mx-0 my-3" @click="goTo()">Create Invoice</md-button>
+      </div>
     </div>
-    <md-progress-spinner
-      class="d-flex justify-content-center mt-5"
-      v-if="loading"
-      :md-diameter="100"
-      :md-stroke="10"
-      md-mode="indeterminate"
-    ></md-progress-spinner>
+    <spinner v-bind:appLoading="loading"></spinner>
 
     <md-card md-with-hover class="w-100" v-if="!loading && item">
       <md-ripple>
         <md-card-header>
-          <div class="md-title">Name: {{item.name}}</div>
-          <div class="md-subhead">Value: ${{item.value}}</div>
-          <div class="md-subhead">Date: {{item.date}}</div>
+          <div class="md-subhead">
+            <span>For:</span>
+            {{item.name}}
+          </div>
+          <div class="md-subhead">
+            <span>Amount:</span>
+            ${{item.value}}
+          </div>
+          <div class="md-subhead for-date">
+            <span>Date:</span>
+            {{item.date}}
+          </div>
         </md-card-header>
 
         <!-- <md-card-content>Dolores, sed accusantium quasi non.</md-card-content> -->
@@ -56,8 +62,7 @@ export default {
   created: function() {
     const id = Number(this.$route.params.name);
     const invoices = this.invoice.all.invoices || [];
-    this.item = null;
-    return;
+
     const newItem = invoices.reduce((n, item, inx) => {
       if (id === Number(item.id)) {
         n = item;
@@ -79,6 +84,9 @@ export default {
     });
   },
   methods: {
+    goTo() {
+      this.$router.push(`/create`);
+    },
     goBack() {
       this.$router.push(`/list`);
     },
@@ -97,6 +105,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.md-card-header {
+  .md-subhead {
+    font-size: 35px;
+    line-height: 40px;
+    &.for-date {
+      font-size: 18px;
+    }
+    color: #fff;
+    > span {
+      opacity: 0.5;
+    }
+  }
+}
 .md-card {
   width: 320px;
   margin: 4px;

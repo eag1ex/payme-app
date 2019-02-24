@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { isArray } from 'lodash';
+import { isEmpty } from 'lodash';
 
 export const invoiceService = {
 	addInvoice,
@@ -16,9 +16,11 @@ function removeInvoice() {
 }
 
 function addInvoice(invoice) {
-	if (!isArray(invoice)) throw `[addInvoice] is not an array`;
+	if (isEmpty(invoice)) throw `[addInvoice] is empty`;
 	const requestOptions = {
-		method: 'GET'
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(invoice)
 	};
 	return fetch(`${config.apiUrl}/invoices/addInvoice`, requestOptions).then(handleResponse);
 }

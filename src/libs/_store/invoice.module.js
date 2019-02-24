@@ -14,11 +14,10 @@ const actions = {
 
 	addInvoice({ dispatch, commit }, invoice) {
 		commit('addInvoiceRequest', invoice);
-
 		invoiceService.addInvoice(invoice).then(
 			(invoice) => {
 				commit('addInvoiceSuccess', invoice);
-				//router.push('/login');
+
 				setTimeout(() => {
 					// display success message after route change completes
 					dispatch('alert/success', 'New Invoice Added', { root: true });

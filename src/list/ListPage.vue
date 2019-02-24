@@ -1,10 +1,20 @@
 <template>
   <div id="template-list" class="bg-inverse m-2 p-3">
     <div class="w-100">
-      <h1 class="md-headline mb-2">Invoices</h1>
+      <div class="d-flex justify-content-between">
+        <h1 class="md-headline my-3">Invoices</h1>
+        <md-button class="md-raised mx-0 my-3" @click="goTo()">Create Invoice</md-button>
+      </div>
     </div>
-
-    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+    <spinner v-bind:appLoading="loading"></spinner>
+    <md-table
+      v-if="!loading"
+      v-model="searched"
+      md-sort="name"
+      md-sort-order="asc"
+      md-card
+      md-fixed-header
+    >
       <md-table-toolbar>
         <!-- <div class="md-toolbar-section-start">
           <h1 class="md-title">Invoices</h1>
@@ -52,10 +62,12 @@ const toLower = text => {
 
 export default {
   name: "TableSearch",
+  props: ["appStatus"],
   data: () => ({
     search: null,
     searched: [],
-    invoices: []
+    invoices: [],
+    loading: true
   }),
 
   created: function() {
@@ -63,6 +75,9 @@ export default {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type.includes("invoice/getAllSuccess")) {
         this.searched = this.invoices = mutation.payload || [];
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
       }
     });
   },
@@ -71,6 +86,9 @@ export default {
     ...mapActions("invoice", {
       getAllInvoices: "getAll"
     }),
+    goTo() {
+      this.$router.push(`/create`);
+    },
     goToItem(item) {
       if (item.id) {
         this.$router.push(`/item/${item.id}`);

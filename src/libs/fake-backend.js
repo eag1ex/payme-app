@@ -1,6 +1,7 @@
 /* eslint-disable */
 // array in local storage for registered users
 import { invoices } from './mock-data/invoices';
+import { invoice } from './_store/invoice.module';
 //let invoices = JSON.parse(localStorage.getItem('invoices')) || [];
 
 export function configureFakeBackend() {
@@ -13,6 +14,29 @@ export function configureFakeBackend() {
 				// get invoices
 				if (url.includes('invoices') && opts.method === 'GET') {
 					resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(invoices)) });
+					return;
+				}
+
+				//invoices/addInvoicE
+				if (url.endsWith('/invoices/addInvoice') && opts.method === 'POST') {
+					// get new user object from post body
+					let newInvoice = JSON.parse(opts.body);
+
+					// validation
+					let duplicateInvoice = invoices.filter((invoice) => {
+						return invoice.name === newInvoice.name;
+					}).length;
+					if (duplicateInvoice) {
+						reject('Invoice "' + newInvoice.name + '" is already taken');
+						return;
+					}
+					// save new user
+					newInvoice.id = invoices.length ? Math.max(...invoices.map((invoice) => invoice.id)) + 1 : 1;
+					invoices.push(newInvoice);
+					localStorage.setItem('invoices', JSON.stringify(invoices));
+					// respond 200 OK
+					console.log('receveid new data', invoices, newInvoice);
+					resolve({ ok: true, text: () => Promise.resolve() });
 					return;
 				}
 				// authenticate
@@ -60,29 +84,6 @@ export function configureFakeBackend() {
 				//         // return 401 not authorised if token is null or invalid
 				//         reject('Unauthorised');
 				//     }
-
-				//     return;
-				// }
-
-				// register user
-				// if (url.endsWith('/users/register') && opts.method === 'POST') {
-				//     // get new user object from post body
-				//     let newUser = JSON.parse(opts.body);
-
-				//     // validation
-				//     let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
-				//     if (duplicateUser) {
-				//         reject('Username "' + newUser.username + '" is already taken');
-				//         return;
-				//     }
-
-				//     // save new user
-				//     newUser.id = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
-				//     users.push(newUser);
-				//     localStorage.setItem('users', JSON.stringify(users));
-
-				//     // respond 200 OK
-				//     resolve({ ok: true, text: () => Promise.resolve() });
 
 				//     return;
 				// }
