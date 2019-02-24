@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { mapState, mapActions } from 'vuex';
+//import { mapState, mapActions } from 'vuex';
 /// extentions
 import VeeValidate from 'vee-validate';
 import VueMaterial from 'vue-material';
@@ -28,7 +28,6 @@ Vue.use(VueMaterial); //Vue.use(MdContent);Vue.use(MdTabs);
 configureFakeBackend();
 
 //Vue.prototype.$appState = 'LOADING';
-
 new Vue({
 	el: '#app',
 	router,
