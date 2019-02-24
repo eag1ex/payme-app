@@ -93,6 +93,11 @@ export default {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type.includes("invoice/addInvoiceSuccess")) {
         this.$router.push("/list");
+        /// reset vals
+        this.lastInvoice = `${this.form.name}, $${this.form.value}`;
+        this.invoiceSaved = true;
+        this.sending = false;
+        this.clearForm();
       }
     });
   },
@@ -125,11 +130,6 @@ export default {
     saveInvoice() {
       this.addInvoice(cloneDeep(this.form));
       this.sending = true;
-
-      this.lastInvoice = `${this.form.name}, $${this.form.value}`;
-      this.invoiceSaved = true;
-      this.sending = false;
-      this.clearForm();
     },
     validateInvoice() {
       this.form.date = this.date;
