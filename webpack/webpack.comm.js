@@ -25,12 +25,7 @@ module.exports = {
 		path: Path.join(__dirname, '../build'),
 		filename: 'js/[name].js'
 	},
-	optimization: {
-		splitChunks: {
-			chunks: 'all',
-			name: false
-		}
-	},
+
 	plugins: [
 		new CleanWebpackPlugin([ 'build' ], { root: Path.resolve(__dirname, '..') }),
 		new CopyWebpackPlugin([ { from: Path.resolve(__dirname, '../public'), to: 'public' } ]),
