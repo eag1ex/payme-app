@@ -17,6 +17,14 @@
 </template>
 
 <script>
+/**
+ *  // NOTE {APP}
+ *  This is the component which declares <top-nav/>, <router-view/>, and <footer-small/> in to applilcation
+ *  - Every route/page loads via the router
+ *  - once the app is loaded completely the {created} method disables the pre-loader.
+ * - we also display messages via {{alert.message}} from store alert.module
+ */
+
 /* eslint-disable */
 import { mapState, mapActions } from "vuex";
 
@@ -54,16 +62,6 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-/// show the app
-.app-on-ready {
-  display: block !important;
-}
-.progress-spinner-init {
-  //display: none !important;
-}
-</style>
 
 <style lang="scss" scoped>
 </style>

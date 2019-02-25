@@ -73,13 +73,24 @@
 </template>
 
 <script>
+/**
+ * // NOTE
+ * {CreateNewInvoice}
+ * Create new invoice: available fields: name, value, email, and > date is geneated.
+ * Data is validated with the help of {validationMixin} on each field, and send to the server
+ * Uppon success on `created` from `this.$store.subscribe` you are redirected to `/lists` page
+ *
+ * {addInvoice}
+ * this the the service which execuses the api call
+ */
+
 import { filters } from "../libs/_services";
 import { validationMixin } from "vuelidate";
 import { required, alpha, integer, email } from "vuelidate/lib/validators";
 import { mapState, mapActions } from "vuex";
 import { cloneDeep } from "lodash";
 export default {
-  name: "NewInvoice",
+  name: "CreateNewInvoice",
   mixins: [validationMixin],
   data: () => ({
     form: {

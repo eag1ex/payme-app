@@ -26,11 +26,9 @@
               </div>
               <div class="md-subhead for-date">
                 <span>Date:</span>
-                {{item.date}}
+                {{niceDate(item.date)}}
               </div>
             </md-card-header>
-
-            <!-- <md-card-content>Dolores, sed accusantium quasi non.</md-card-content> -->
           </md-ripple>
         </div>
       </div>
@@ -43,11 +41,22 @@
 </template>
 
 <script>
+/**
+ * // NOTE
+ * {ListItemPage}
+ * this page/route with target: this.$route.params >{name:id}, and match agains our already aquired invoice data
+ * and display that match item on the page.
+ * - will look into route resolver, there maybe a way to resolve each item/route before it is being displayed.
+ *   Just like in Angular 2+
+ *
+ */
+
 import { filters } from "../libs/_services";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { isEmpty } from "lodash";
+
 export default {
-  name: "RegularCards",
+  name: "ListItemPage",
   data: () => ({
     item: {
       name: null,
@@ -58,6 +67,7 @@ export default {
     loading: true
     //
   }),
+
   computed: {
     ...mapState({
       invoice: state => state.invoice
@@ -70,29 +80,43 @@ export default {
   },
   created: function() {
     const id = Number(this.$route.params.name);
-    const invoices = this.invoice.all.invoices || [];
-
+    const hasResults = !isEmpty(this.invoice.all);
+    const invoices = hasResults ? this.invoice.all.invoices : [];
     const newItem = invoices.reduce((n, item, inx) => {
       if (id === Number(item.id)) {
         n = item;
-        if (n.date) {
-          n.date = filters.niceDate(n.date);
-        }
       }
       return n;
     }, {});
+
     if (!isEmpty(newItem)) {
       this.item = newItem;
-    } else this.item = null;
-  },
-  mounted: function() {
-    this.$nextTick(function() {
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
-    });
+      this.loading = false;
+    } else {
+      /// search live api instead
+      this.getOne(id); // execute call
+
+      this.$store.subscribe(
+        (mutation, state) => {
+          if (mutation.type.includes("invoice/getOneItemSuccess")) {
+            this.item = mutation.payload[0] || null;
+            this.item;
+            setTimeout(() => {
+              this.loading = false;
+            }, 500);
+          }
+          if (mutation.type.includes("invoice/getOneItemFailure")) {
+            this.loading = false;
+          }
+        },
+        err => {}
+      );
+    }
   },
   methods: {
+    ...mapActions("invoice", {
+      getOne: "getOneItem"
+    }),
     goTo() {
       this.$router.push(`/create`);
     },
@@ -103,7 +127,7 @@ export default {
       return filters.niceDate(number);
     },
     printValue(val) {
-      return Number(val).toFixed(2); //Math.round(Number(val || 0));
+      return Number(val).toFixed(2);
     }
   }
 };

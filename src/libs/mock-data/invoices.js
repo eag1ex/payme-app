@@ -1,4 +1,7 @@
-import * as moment from 'moment';
+/**
+ * our mock data use together with `fake-backend`
+ */
+
 let invoices = [
 	{
 		id: 1,
@@ -40,7 +43,7 @@ let invoices = [
 		name: 'Helge Holyard',
 		value: 6789,
 		email: 'john.doe@email.com',
-		date: new Date().getTime() //new Date().getTime()
+		date: new Date().getTime()
 	},
 	{
 		id: 7,

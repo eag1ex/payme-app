@@ -17,7 +17,7 @@ const actions = {
 
 const mutations = {
 	success(state, message) {
-		state.type = 'alert-success';
+		state.type = 'alert-success w-50 bg-primary';
 		state.message = message;
 		setTimeout(() => {
 			state.type = null;
@@ -25,7 +25,7 @@ const mutations = {
 		}, 3000);
 	},
 	error(state, message) {
-		state.type = 'alert-danger';
+		state.type = 'alert-danger bg-danger w-50';
 		state.message = message;
 	},
 	clear(state) {

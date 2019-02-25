@@ -1,3 +1,7 @@
+/**
+ * share functions for reuse
+ */
+
 import * as moment from 'moment';
 
 function niceDate(date = 0) {

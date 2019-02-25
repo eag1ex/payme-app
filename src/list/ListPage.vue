@@ -24,7 +24,7 @@
       <md-table-toolbar>
         <md-field md-clearable class="md-toolbar-section-end">
           <md-input
-            placeholder="Search name, value, or date"
+            placeholder="Search name, value, email or date"
             v-model="search"
             @input="searchOnTable"
           />
@@ -60,6 +60,31 @@
 </template>
 
 <script>
+/**
+ * // NOTE
+ * {ListPage}
+ * We display all available invoices on this page with the help of vue-materials plugin.
+ * You can search each invoice/item field: name, value, email or date to narrow results
+ * You can delete any/ or all items by selection, the action will call to api and return new results, and refresh the table.
+ * You can to to single invoice item via/click
+ *
+ * // mapActions
+ * This will map the methods declared from our services: `/libs/_services/invoice.service`
+ *
+ * // mapState
+ * Is the Vuex.Store which holds the store.invoice data passed from rest/api
+ *
+ * {getAllInvoices, deleteInvoice}
+ * This is the service which executes api call
+ *
+ * // spinner
+ * Initially.. and after the app preloaded, you may see a spinner that will be displayed before table data is availabile
+ *
+ * // FIXME:
+ *  vue-materials is still in its beta, i have found i bug> uppon page refresh initial selsction doesnt work, you have to reselect.
+ *
+ */
+
 import { mapState, mapActions } from "vuex";
 import * as moment from "moment";
 import { isEmpty, cloneDeep } from "lodash";
@@ -69,7 +94,7 @@ const toLower = text => {
 };
 
 export default {
-  name: "TableSearch",
+  name: "ListPage",
   props: ["appStatus"],
   data: () => ({
     search: null,
@@ -79,15 +104,17 @@ export default {
     selected: []
   }),
 
+  /**
+   * wait for resolution of either getAllSuccess or deleteSuccess
+   */
   created: function() {
     this.getAllInvoices();
     this.$store.subscribe((mutation, state) => {
       if (mutation.type.includes("invoice/getAllSuccess")) {
         this.searched = this.invoices = mutation.payload || [];
-        console.log(" mutation.payload", this.searched);
         setTimeout(() => {
           this.loading = false;
-        }, 1000);
+        }, 500);
       }
       if (mutation.type.includes("invoice/deleteSuccess")) {
         this.loading = true;
@@ -110,7 +137,7 @@ export default {
       }
     },
     printValue(val) {
-      return `$` + Number(val).toFixed(2); //Math.round(Number(val || 0));
+      return `$` + Number(val).toFixed(2);
     },
     niceDate(date) {
       return moment(date).format("DD-MM-YY, h:mm:ss a");
@@ -126,14 +153,13 @@ export default {
         });
         this.deleteInvoice(ids);
         this.selected = [];
-        // console.log("delete selected", ids);
       } else {
         window.alert("bug.. try re-selecting again");
         this.selected = [];
       }
-      //
     },
 
+    // search for any field from the item
     searchByAny(items, term) {
       if (term) {
         const nameMatch = items.filter(item =>
@@ -176,7 +202,6 @@ export default {
       if (count > 1) {
         plural = "s";
       }
-
       return `${count} item${plural} selected`;
     }
   }

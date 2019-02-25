@@ -2,11 +2,11 @@ a {
 	cursor: pointer;
 }
 
+.alert-danger,
 .alert-success {
 	text-align: center;
-}
-.alert-danger {
-	text-align: center;
+	margin: auto;
+	opacity: 0.4;
 }
 
 .fade-enter-active,

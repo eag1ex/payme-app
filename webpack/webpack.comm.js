@@ -3,11 +3,19 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const API_BASE = () => {
+	if (process.env.NODE_ENV === 'development') {
+		return `http://localhost:4000`;
+	} else {
+		return ''; // todo
+	}
+};
 module.exports = {
 	externals: {
 		// global app config object
 		config: JSON.stringify({
-			apiUrl: 'http://localhost:4000'
+			apiUrl: API_BASE()
 		})
 	},
 	entry: {

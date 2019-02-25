@@ -5,18 +5,25 @@
         <h1 class="md-headline mb-2">{{message}}</h1>
       </div>
       <p>
-        <router-link to="/login">Home</router-link>
+        <router-link to="/Home">Home</router-link>
       </p>
     </div>
   </div>
 </template>
 
 <script>
+/**
+ * // NOTE
+ * {page404}
+ * Show this page when the router des not match any url.
+ */
+
 export default {
   name: "page404",
   data: () => ({
     message: "404, ups.. page not found"
-    // date: null
   })
 };
 </script>
+<style lang="scss" scoped>
+</style>

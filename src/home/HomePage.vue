@@ -25,6 +25,12 @@
 </template>
 
 <script>
+/**
+ * // NOTE
+ * {HomePage}
+ * This page is simple, we display welcome message with one goTo page
+ *  */
+
 export default {
   name: "HomePage",
   data: () => ({ loading: true }),

@@ -1,16 +1,39 @@
-import { invoiceService } from '../_services';
+/**
+ * {invoiceStoreModule}
+ * This is the Vuex.Store module which imports our invoice/api serice so we can later.
+ * 
+ * // mutations
+ * these are our commit/s you may call them notifications, uppon each action we can then
+ * access this.$store.subscribe(...)
+ * 
+ * The module is declared in `/_store/index.js` for export
+ */
 
+import { invoiceService } from '../_services';
 const invoices = JSON.parse(localStorage.getItem('invoices'));
 const state = invoices ? { status: { loggedIn: true }, invoices } : { status: {}, invoices: null };
 
 const actions = {
-	getAll({ commit }) {
+	getAll({ dispatch, commit }) {
 		commit('getAllRequest');
-		invoiceService
-			.getAll()
-			.then((invoices) => commit('getAllSuccess', invoices), (error) => commit('getAllFailure', error));
+		invoiceService.getAll().then(
+			(invoices) => commit('getAllSuccess', invoices),
+			(error) => {
+				commit('getAllFailure', error);
+				dispatch('alert/error', error, { root: true });
+			}
+		);
 	},
-
+	getOneItem({ dispatch, commit }, invoice) {
+		commit('getOneItemRequest', invoice);
+		invoiceService.getOneItem(invoice).then(
+			(invoice) => commit('getOneItemSuccess', invoice),
+			(error) => {
+				commit('getOneItemFailure', error);
+				dispatch('alert/error', error, { root: true });
+			}
+		);
+	},
 	addInvoice({ dispatch, commit }, invoice) {
 		commit('addInvoiceRequest', invoice);
 		invoiceService.addInvoice(invoice).then(
@@ -40,6 +63,15 @@ const actions = {
 };
 
 const mutations = {
+	getOneItemRequest(state) {
+		state.all = { loading: true };
+	},
+	getOneItemSuccess(state, invoice) {
+		state.all = { invoice };
+	},
+	getOneItemFailure(state, error) {
+		state.all = { error };
+	},
 	getAllRequest(state) {
 		state.all = { loading: true };
 	},
@@ -49,7 +81,6 @@ const mutations = {
 	getAllFailure(state, error) {
 		state.all = { error };
 	},
-
 	addInvoiceRequest(state /*, invoice*/) {
 		state.status = { adding: true };
 	},
@@ -79,7 +110,6 @@ const mutations = {
 				// return copy of invoice with 'deleteError:[error]' property
 				return { ...invoiceCopy, deleteError: error };
 			}
-
 			return invoice;
 		});
 	}

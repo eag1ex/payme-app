@@ -1,10 +1,11 @@
+/**
+ * here we bootstrap the application and import everything, including scss
+ */
+
 import Vue from 'vue';
-//import { mapState, mapActions } from 'vuex';
 /// extentions
 import VeeValidate from 'vee-validate';
 import VueMaterial from 'vue-material';
-//import BootstrapVue from 'bootstrap-vue';
-//import { /*MdButton, MdContent, MdTabs*/ MdTable } from 'vue-material/src/components';
 
 import './libs/styles/index.scss';
 import { store } from './libs/_store';
@@ -24,12 +25,11 @@ Vue.component('footer-small', Footer);
 // end
 
 Vue.use(VeeValidate);
-//Vue.use(BootstrapVue);
-Vue.use(VueMaterial); //Vue.use(MdContent);Vue.use(MdTabs);
+Vue.use(VueMaterial);
+
 // setup fake backend
 configureFakeBackend();
 
-//Vue.prototype.$appState = 'LOADING';
 const _v = new Vue({
 	el: '#app',
 	router,

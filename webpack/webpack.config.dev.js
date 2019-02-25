@@ -7,17 +7,22 @@ module.exports = merge(common, {
 	mode: 'development',
 	devtool: 'cheap-eval-source-map',
 	output: {
-		chunkFilename: 'js/[name].chunk.js'
+		chunkFilename: 'js/[name].chunk.js',
+		publicPath: '/'
 	},
 	devServer: {
-		historyApiFallback: true
+		port: 4000,
+		historyApiFallback: {
+			hot: true,
+			index: '/'
+			//	rewrites: [ { from: '*', to: 'index.html' } ]
+		}
 	},
 	plugins: [
 		new Webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify('development')
 		})
 	],
-
 	module: {
 		rules: [
 			{

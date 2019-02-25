@@ -1,8 +1,11 @@
-/* eslint-disable */
-// array in local storage for registered users
+/**
+ * // NOTE
+ * {configureFakeBackend}
+ * this is our fake server, so we can start production before backend is ready
+ */
+
 import { invoices } from './mock-data/invoices';
-import { invoice } from './_store/invoice.module';
-//let invoices = JSON.parse(localStorage.getItem('invoices')) || [];
+import { isEmpty } from 'lodash';
 
 export function configureFakeBackend() {
 	let realFetch = window.fetch;
@@ -11,16 +14,37 @@ export function configureFakeBackend() {
 			// wrap in timeout to simulate server api call
 			setTimeout(() => {
 				console.log('calling url', url, opts.method);
-				// get invoices
-				if (url.includes('invoices') && opts.method === 'GET') {
+
+				if (url.includes('invoice/') && !url.includes('allInvoices') && opts.method === 'GET') {
+					let id = url.split('/');
+					id = id[id.length - 1];
+					if (id) id = Number(id);
+					if (!id) return reject('no id found');
+
+					const getOne = invoices.reduce((n, item, inx) => {
+						if (item.id === id) n.push(item);
+						return n;
+					}, []);
+					if (!getOne.length) return reject('no result found');
+
+					resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(getOne)) });
+					return;
+				}
+				// get all invoices
+				if (url.includes('allInvoices') && opts.method === 'GET') {
 					resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(invoices)) });
 					return;
 				}
 
-				//invoices/addInvoicE
+				//addInvoice
 				if (url.endsWith('/invoices/addInvoice') && opts.method === 'POST') {
 					// get new user object from post body
 					let newInvoice = JSON.parse(opts.body);
+
+					if (isEmpty(newInvoice)) {
+						reject('invoices/addInvoice request is empty');
+						return;
+					}
 
 					// validation
 					let duplicateInvoice = invoices.filter((invoice) => {

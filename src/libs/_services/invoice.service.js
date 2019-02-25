@@ -1,22 +1,15 @@
+/**
+ * {invoiceService}
+ * Here we declare all our our RESt/Api calls
+ * We use `config` a dynamic variable generated from webpack, `{config.apiUrl}` holds our base api
+ *  
+ */
+
 import config from 'config';
-
 import { isEmpty } from 'lodash';
-
-export const invoiceService = {
-	addInvoice,
-	getAll,
-	// getById,
-	// update,
-	delete: _delete
-};
-
-function removeInvoice() {
-	// remove user from local storage to log user out
-	localStorage.removeItem('invoices');
-}
+import { isNumber } from 'util';
 
 function addInvoice(invoice) {
-	if (isEmpty(invoice)) throw `[addInvoice] is empty`;
 	const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -31,28 +24,18 @@ function getAll() {
 		headers: { 'Content-Type': 'application/json' }
 	};
 
-	return fetch(`${config.apiUrl}/invoices`, requestOptions).then(handleResponse);
+	return fetch(`${config.apiUrl}/allInvoices`, requestOptions).then(handleResponse);
 }
 
-// function getById(id) {
-// 	const requestOptions = {
-// 		method: 'GET',
-// 		headers: { 'Content-Type': 'application/json' }
-// 	};
+function getOneItem(id) {
+	const requestOptions = {
+		method: 'GET',
+		headers: { 'Content-Type': 'application/json' }
+	};
 
-// 	return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
-// }
+	return fetch(`${config.apiUrl}/invoice/${id}`, requestOptions).then(handleResponse);
+}
 
-// function update(invoice) {
-// 	const requestOptions = {
-// 		method: 'PUT',
-// 		headers: { 'Content-Type': 'application/json' },
-// 		body: JSON.stringify(invoice)
-// 	};
-// 	return fetch(`${config.apiUrl}/invoices/${invoice.id}`, requestOptions).then(handleResponse);
-// }
-
-// prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(ids) {
 	const _ids = encodeURIComponent(ids.toString());
 	const requestOptions = {
@@ -68,16 +51,42 @@ function handleResponse(response) {
 		const data = text && JSON.parse(text);
 		if (!response.ok) {
 			if (response.status === 401) {
-				// auto logout if 401 response returned from api
-				//logout();
 				window.alert('response.status 401');
 				location.reload(true);
 			}
-			console.log('handleResponse', response);
 			const error = (data && data.message) || response.statusText;
 			return Promise.reject(error);
 		}
-		console.log('handleResponse', response);
 		return data;
 	});
 }
+
+export const invoiceService = {
+	addInvoice,
+	getAll,
+	getOneItem,
+	delete: _delete
+	// getById,
+	// update,
+};
+
+// function removeInvoice() {
+// 	localStorage.removeItem('invoices');
+// }
+
+// function getById(id) {
+// 	const requestOptions = {
+// 		method: 'GET',
+// 		headers: { 'Content-Type': 'application/json' }
+// 	};
+// 	return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+// }
+
+// function update(invoice) {
+// 	const requestOptions = {
+// 		method: 'PUT',
+// 		headers: { 'Content-Type': 'application/json' },
+// 		body: JSON.stringify(invoice)
+// 	};
+// 	return fetch(`${config.apiUrl}/invoices/${invoice.id}`, requestOptions).then(handleResponse);
+// }
