@@ -1,0 +1,24 @@
+.dollar {
+	width: 100%;
+	height: auto;
+	user-select: none;
+	font-size: 16px;
+	font-size: 13.5vw;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 0.1);
+	> p {
+		display: block;
+		line-height: 0px;
+		position: absolute;
+		top: -24%;
+	}
+}
+.md-card-actions {
+	position: relative;
+	top: 80px;
+	left: -15px;
+}
+
+.md-field:last-child {
+	margin-bottom: 40px;
+}

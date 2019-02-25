@@ -39,6 +39,37 @@ export function configureFakeBackend() {
 					resolve({ ok: true, text: () => Promise.resolve() });
 					return;
 				}
+
+				//delete invoice
+				if (url.includes('invoices') && opts.method === 'DELETE') {
+					//if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+					// find user by id in users array
+					let urlParts = url.split('/');
+					let ids = decodeURIComponent(urlParts[urlParts.length - 1]);
+					let idsArr = ids.split(',');
+					if (!idsArr.length) {
+						return reject('no ids found');
+					}
+
+					for (let i = 0; i < invoices.length; i++) {
+						idsArr.filter((id) => {
+							const _id = Number(id);
+							const found = _id === invoices[i].id;
+							if (found) {
+								console.log('removing ', invoices[i]);
+								invoices.splice(i, 1);
+								localStorage.setItem('invoices', JSON.stringify(invoices));
+							}
+							return true;
+						});
+					}
+
+					// respond 200 OK
+					resolve({ ok: true, text: () => Promise.resolve() });
+
+					return;
+				}
+
 				// authenticate
 				// if (url.endsWith('/authenticate') && opts.method === 'POST') {
 				//     // get parameters from post request
@@ -80,33 +111,6 @@ export function configureFakeBackend() {
 
 				//         // respond 200 OK with user
 				//         resolve({ ok: true, text: () => JSON.stringify(user)});
-				//     } else {
-				//         // return 401 not authorised if token is null or invalid
-				//         reject('Unauthorised');
-				//     }
-
-				//     return;
-				// }
-
-				// delete user
-				// if (url.match(/\/users\/\d+$/) && opts.method === 'DELETE') {
-				//     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-				//     if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-				//         // find user by id in users array
-				//         let urlParts = url.split('/');
-				//         let id = parseInt(urlParts[urlParts.length - 1]);
-				//         for (let i = 0; i < users.length; i++) {
-				//             let user = users[i];
-				//             if (user.id === id) {
-				//                 // delete user
-				//                 users.splice(i, 1);
-				//                 localStorage.setItem('users', JSON.stringify(users));
-				//                 break;
-				//             }
-				//         }
-
-				//         // respond 200 OK
-				//         resolve({ ok: true, text: () => Promise.resolve() });
 				//     } else {
 				//         // return 401 not authorised if token is null or invalid
 				//         reject('Unauthorised');

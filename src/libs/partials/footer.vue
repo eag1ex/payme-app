@@ -1,12 +1,11 @@
 <template>
-  <div class="container-fluid">
-    <footer class="row d-flex justify-content-center">
-      <div class="col-sm-6 col-md-8 col-lg-10">
-        <md-toolbar class="w-100">
-          <md-button class="mx-2" href="/home">Home</md-button>
-          <md-button class="mx-2" href="/list">Invoices</md-button>
-          <md-button class="mx-2" href="/create">Create Invoice</md-button>
-        </md-toolbar>
+  <div class="container-fluid mb-3" v-cloak v-if="!loading">
+    <footer class="row d-flex justify-content-center mt-3">
+      <div class="col-sm-12 col-md-8 col-lg-10 mt-3 right">
+        <small class="pr-2 right">$PAYME - Invoice Application</small>
+        <small class="pr-2 right">
+          <i>Creative Common License.</i> &#169;Copyright 2019
+        </small>
       </div>
     </footer>
   </div>
@@ -14,9 +13,25 @@
 
 <script>
 export default {
-  name: "footer"
+  name: "footer-small",
+  props: ["loading"],
+  created: function() {}
 };
 </script>
 
 <style lang="scss" scoped>
+footer {
+  .right {
+    text-align: right;
+    clear: both;
+    float: right;
+  }
+  small {
+    clear: both;
+    color: #ccc;
+  }
+  footer > div > small::nth-child(2) {
+    color: #aaa !important;
+  }
+}
 </style>

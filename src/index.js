@@ -16,9 +16,11 @@ import { configureFakeBackend } from './libs';
 import Spinner from './libs/partials/progress-spinner';
 import TopNav from './libs/partials/top-nav';
 import TopTitle from './libs/partials/top-title';
+import Footer from './libs/partials/footer';
 Vue.component('spinner', Spinner);
 Vue.component('top-nav', TopNav);
 Vue.component('top-title', TopTitle);
+Vue.component('footer-small', Footer);
 // end
 
 Vue.use(VeeValidate);
@@ -28,7 +30,7 @@ Vue.use(VueMaterial); //Vue.use(MdContent);Vue.use(MdTabs);
 configureFakeBackend();
 
 //Vue.prototype.$appState = 'LOADING';
-new Vue({
+const _v = new Vue({
 	el: '#app',
 	router,
 	store,

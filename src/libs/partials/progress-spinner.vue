@@ -14,9 +14,7 @@
 export default {
   name: "progress-spinner",
   props: ["appLoading"],
-  data() {
-    return {};
-  },
+
   created: function() {
     console.log("---appLoading");
   },

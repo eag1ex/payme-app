@@ -22,15 +22,22 @@
 				width: 100% !important;
 				th {
 					text-align: left !important;
-					width: 24% !important;
+					width: 19% !important;
+					&.md-table-head.md-table-cell-selection {
+						width: 20px !important;
+					}
 				}
 			}
 		}
 	}
 	.md-content.md-table-content {
 		td {
-			width: 24% !important;
+			width: 19% !important;
 			text-align: left !important;
+			&.md-table-cell-selection {
+				width: 20px !important;
+				opacity: 0.3;
+			}
 		}
 	}
 }

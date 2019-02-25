@@ -1,0 +1,43 @@
+.md-card-header {
+	.md-subhead {
+		font-size: 35px;
+		line-height: 40px;
+		&.for-date {
+			font-size: 18px;
+		}
+		color: #fff;
+		> span {
+			opacity: 0.5;
+		}
+	}
+}
+.md-card {
+	margin-bottom: -30px !important;
+	background: unset !important;
+	box-shadow: unset !important;
+	//width: 320px;
+	margin: 4px;
+	display: inline-block;
+	vertical-align: top;
+	.md-card-actions {
+		position: relative;
+		top: 50px;
+		left: -20px;
+	}
+}
+
+.dollar {
+	width: 100%;
+	height: auto;
+	user-select: none;
+	font-size: 16px;
+	font-size: 8.5vw;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 0.1);
+	> p {
+		display: block;
+		line-height: 0px;
+		position: absolute;
+		top: -20%;
+	}
+}

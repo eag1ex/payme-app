@@ -5,8 +5,8 @@ import { isEmpty } from 'lodash';
 export const invoiceService = {
 	addInvoice,
 	getAll,
-	getById,
-	update,
+	// getById,
+	// update,
 	delete: _delete
 };
 
@@ -34,32 +34,33 @@ function getAll() {
 	return fetch(`${config.apiUrl}/invoices`, requestOptions).then(handleResponse);
 }
 
-function getById(id) {
-	const requestOptions = {
-		method: 'GET',
-		headers: { 'Content-Type': 'application/json' }
-	};
+// function getById(id) {
+// 	const requestOptions = {
+// 		method: 'GET',
+// 		headers: { 'Content-Type': 'application/json' }
+// 	};
 
-	return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
-}
+// 	return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+// }
 
-function update(invoice) {
-	const requestOptions = {
-		method: 'PUT',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(invoice)
-	};
-	return fetch(`${config.apiUrl}/invoices/${invoice.id}`, requestOptions).then(handleResponse);
-}
+// function update(invoice) {
+// 	const requestOptions = {
+// 		method: 'PUT',
+// 		headers: { 'Content-Type': 'application/json' },
+// 		body: JSON.stringify(invoice)
+// 	};
+// 	return fetch(`${config.apiUrl}/invoices/${invoice.id}`, requestOptions).then(handleResponse);
+// }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
+function _delete(ids) {
+	const _ids = encodeURIComponent(ids.toString());
 	const requestOptions = {
 		method: 'DELETE',
 		headers: { 'Content-Type': 'application/json' }
 	};
-
-	return fetch(`${config.apiUrl}/invoices/${id}`, requestOptions).then(handleResponse);
+	if (isEmpty(_ids)) throw `[_delete] ids are empty`;
+	return fetch(`${config.apiUrl}/invoices/${_ids}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

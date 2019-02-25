@@ -2,66 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PAYME</title>
+    <title>$PAYME</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <style>
-    .app-on-ready{
-        display: none;
+    html{
+        background-color:#000; 
     }
-    /* .progress-spinner-init{
-        
-        .trans-bg {
-            display: block;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.2);
-            position: fixed;
-            left: 0;
-            top: 0;
-        }
-        .md-progress-spinner {
-            z-index: 1111;
-            top: 25%;
-            left: 50%;
-            right: 50%;
-            position: fixed;
-        }
-        svg{
-            width: 100px;
-            height: 100px;
-        }
-        .md-progress-spinner.md-indeterminate .md-progress-spinner-circle {
-                -webkit-animation: 4s infinite cubic-bezier(.25,.8,.25,1);
-                animation: 4s infinite cubic-bezier(.25,.8,.25,1);
+    #app-payme{
+        visibility: hidden;
+    }
+    #start-app-preloader {
+        width:100%;
+        height:100%; 
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        background:#303030;
+        filter: blur(10px) contrast(20);
+    }
+    #start-app-preloader >div{
+        width: 350px;
+        height: 350px;
+        position: relative;
+        margin: 0 auto;
+        top: 15%;
+    }
+    #start-app-preloader .blob-1, #start-app-preloader .blob-2{
+                width:70px;
+                height:70px;
+                position:absolute;
+                background:#fff;
+                border-radius:50%;
+                top:50%;left:50%;
+                transform:translate(-50%,-50%);
             }
-        .md-progress-spinner-draw {
-                overflow: visible;
-                -webkit-transform: scale(1) rotate(-90deg);
-                transform: scale(1) rotate(-90deg);
-                -webkit-transform-origin: center;
-                transform-origin: center;
-                transition: .4s cubic-bezier(.25,.8,.25,1);
-                will-change: opacity,transform;
+            #start-app-preloader .blob-1{
+                left:20%;
+                animation:osc-l 2.5s ease infinite;
+            }
+            #start-app-preloader  .blob-2{
+                left:80%;
+                animation:osc-r 2.5s ease infinite;
+                background:#0ff;
+            }
+            @keyframes osc-l{
+                0%{left:20%;}
+                50%{left:50%;}
+                100%{left:20%;}
+            }
+            @keyframes osc-r{
+                0%{left:80%;}
+                50%{left:50%;}
+                100%{left:80%;}
             }
 
-        .md-progress-spinner.md-theme-default .md-progress-spinner-circle {
-                stroke: #448aff;
-                stroke: var(--md-theme-default-primary, #448aff);
-        } 
-        .md-progress-spinner-circle {
-            fill: none;
-            -webkit-transform-origin: center;
-            transform-origin: center;
-            transition: stroke-dashoffset .25s cubic-bezier(.25,.8,.25,1);
-            will-change: stroke-dashoffset,stroke-dasharray,stroke-width,animation-name,r;
-        }    
-    }*/
 </style>
 <body>
-    <div id="app" class='app-on-ready'></div>
-
+    <div id="app"></div>
+    <div id="start-app-preloader">
+        <div>
+                <div class="blob-1"></div>
+                <div class="blob-2"></div>
+        </div>
+     
+    </div>
     <!-- <div id="progress-spinner-wrap" class='progress-spinner-init'><div class="md-progress-spinner d-flex justify-content-center mt-5 bg-secondary md-progress-spinner-indeterminate md-indeterminate md-theme-default"><svg preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 100 100" class="md-progress-spinner-draw" style="width: 100px; height: 100px;"><circle cx="50%" cy="50%" r="45" class="md-progress-spinner-circle" style="stroke-dasharray: 282.743px; stroke-width: 10px; animation-name: md-progress-spinner-stroke-rotate-100;"></circle></svg></div> <div class="trans-bg"></div></div> -->
 
 
