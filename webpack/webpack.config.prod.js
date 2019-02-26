@@ -1,6 +1,7 @@
 const Path = require('path');
 const Webpack = require('webpack');
 const merge = require('webpack-merge');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const common = require('./webpack.comm.js');
@@ -20,9 +21,16 @@ module.exports = merge(common, {
 	optimization: {
 		splitChunks: {
 			chunks: 'all',
-			name: false
+			name: true
 		},
-		minimizer: [ new OptimizeCSSAssetsPlugin({}) ]
+		minimizer: [
+			new UglifyJsPlugin({
+				cache: true,
+				parallel: true,
+				sourceMap: true // set to true if you want JS source maps
+			}),
+			new OptimizeCSSAssetsPlugin({})
+		]
 	},
 	plugins: [
 		new Webpack.DefinePlugin({
@@ -30,7 +38,8 @@ module.exports = merge(common, {
 		}),
 		new Webpack.optimize.ModuleConcatenationPlugin(),
 		new MiniCssExtractPlugin({
-			filename: 'bundle.css'
+			filename: '[name].css',
+			chunkFilename: '[id].css'
 		})
 	],
 

@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>$PAYME</title><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico"><link href="1.bundle.css" rel="stylesheet"><link href="bundle.css" rel="stylesheet"></head><style>/**
+    To display preloading before anything alse, we need to initiate this first here, 
+    so we dont see ugly browser rendering.
+    We set `#app-payme` to visibility `hidden` this way it can load it behind the scene, 
+    then we set it to `visible` from App.vue
+    **/
+
+    html{
+        background-color:#000; 
+    }
+    #app-payme{
+        visibility: hidden;
+    }
+    #start-app-preloader {
+        width:100%;
+        height:100%; 
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        background:#303030;
+        filter: blur(10px) contrast(20);
+    }
+    #start-app-preloader >div{
+        width: 350px;
+        height: 350px;
+        position: relative;
+        margin: 0 auto;
+        top: 15%;
+    }
+    #start-app-preloader .blob-1, #start-app-preloader .blob-2{
+                width:70px;
+                height:70px;
+                position:absolute;
+                background:#fff;
+                border-radius:50%;
+                top:50%;left:50%;
+                transform:translate(-50%,-50%);
+            }
+            #start-app-preloader .blob-1{
+                left:20%;
+                animation:osc-l 2.5s ease infinite;
+            }
+            #start-app-preloader  .blob-2{
+                left:80%;
+                animation:osc-r 2.5s ease infinite;
+                background:#0ff;
+            }
+            @keyframes osc-l{
+                0%{left:20%;}
+                50%{left:50%;}
+                100%{left:20%;}
+            }
+            @keyframes osc-r{
+                0%{left:80%;}
+                50%{left:50%;}
+                100%{left:80%;}
+            }</style><body><div id="app"></div><div id="start-app-preloader"><div><div class="blob-1"></div><div class="blob-2"></div></div></div><noscript>Please enable JavaScript to continue using this application.</noscript><script src="js/1.1a966cc8.chunk.js"></script><script src="js/app.f3a57cf4.js"></script></body></html>

@@ -1,11 +1,15 @@
 {
 	"name": "payme",
 	"version": "1.0.0",
-	"license": "creative commons",
+
 	"scripts": {
 		"build": "webpack --config webpack/webpack.config.prod.js  --colors",
 		"start": "webpack-dev-server --open --config webpack/webpack.config.dev.js"
 	},
+	"author": "eaglex",
+	"url": "http://eaglex.net",
+	"license": "CC BY",
+	"private": true,
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@vue/babel-preset-app": "^3.4.1",
@@ -15,6 +19,7 @@
 		"lodash": "^4.17.11",
 		"moment": "^2.24.0",
 		"optimize-css-assets-webpack-plugin": "^5.0.1",
+		"uglifyjs-webpack-plugin": "^2.1.2",
 		"vee-validate": "^2.1.0-beta.6",
 		"vue": "^2.5.16",
 		"vue-eslint-parser": "^6.0.2",
@@ -54,5 +59,12 @@
 		"webpack-cli": "^3.1.2",
 		"webpack-dev-server": "^3.1.9",
 		"webpack-merge": "^4.1.4"
+	},
+	"engines": {
+		"vuex": ">=3.0.1",
+		"vue": ">=2.5.16",
+		"node": ">=10.14.2",
+		"node-sass": ">=4.9.0",
+		"npm": ">=6.5.0"
 	}
 }

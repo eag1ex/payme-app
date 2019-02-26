@@ -17,3 +17,7 @@ https://frontendsociety.com/writing-single-file-components-vue-files-in-typescri
 css preloaders
 https://freefrontend.com/css-loaders/
 https://steelkiwi.com/blog/30-most-captivating-preloaders-for-website/
+
+
+edit md file
+https://stackedit.io/app#
