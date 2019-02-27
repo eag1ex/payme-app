@@ -15,7 +15,7 @@ function addInvoice(invoice) {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(invoice)
 	};
-	return fetch(`${config.apiUrl}/invoices/addInvoice`, requestOptions).then(handleResponse);
+	return fetch(`${config.apiUrl}/invoices/add`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
@@ -46,19 +46,34 @@ function _delete(ids) {
 	return fetch(`${config.apiUrl}/invoices/${_ids}`, requestOptions).then(handleResponse);
 }
 
-function handleResponse(response) {
-	return response.text().then((text) => {
-		const data = text && JSON.parse(text);
-		if (!response.ok) {
-			if (response.status === 401) {
-				window.alert('response.status 401');
-				location.reload(true);
+function handleResponse(data) {
+	return data
+		.json()
+		.then(
+			(d) => {
+				console.log(`-- handleResponse`);
+				console.log(`--`, JSON.stringify(d, false, 1));
+				console.log(`-- END`);
+				const resp = d.response;
+				if (!d.success) {
+					if (d.status === 401) {
+						//	window.alert('response.status 401');
+						window.location.reload(true);
+					}
+					const error = (d && d.message) || d.statusText;
+					return Promise.reject(error);
+				}
+				return resp;
+			},
+			(err) => {
+				return Promise.reject(err);
 			}
-			const error = (data && data.message) || response.statusText;
-			return Promise.reject(error);
-		}
-		return data;
-	});
+		)
+		.catch((err) => {
+			//window.alert(err);
+			console.log('handleResponse error->', err);
+			return Promise.reject(err);
+		});
 }
 
 export const invoiceService = {

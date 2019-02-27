@@ -19,7 +19,6 @@ export function configureFakeBackend() {
 			// wrap in timeout to simulate server api call
 			setTimeout(() => {
 				console.log('calling url', url, opts.method);
-
 				if (url.includes('invoice/') && !url.includes('allInvoices') && opts.method === 'GET') {
 					let id = url.split('/');
 					id = id[id.length - 1];
@@ -31,24 +30,21 @@ export function configureFakeBackend() {
 						return n;
 					}, []);
 					if (!getOne.length) return reject('no result found');
-
-					resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(getOne)) });
-					return;
+					const r = { response: getOne, success: true };
+					return resolve({ json: () => Promise.resolve(r) });
 				}
 				// get all invoices
 				if (url.includes('allInvoices') && opts.method === 'GET') {
-					resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(invoices)) });
-					return;
+					const r = { response: invoices, success: true };
+					return resolve({ json: () => Promise.resolve(r) });
 				}
 
 				//addInvoice
-				if (url.endsWith('/invoices/addInvoice') && opts.method === 'POST') {
+				if (url.endsWith('/invoices/add') && opts.method === 'POST') {
 					// get new user object from post body
 					let newInvoice = JSON.parse(opts.body);
-
 					if (isEmpty(newInvoice)) {
-						reject('invoices/addInvoice request is empty');
-						return;
+						return reject('invoices/add request is empty');
 					}
 
 					// validation
@@ -56,23 +52,19 @@ export function configureFakeBackend() {
 						return invoice.name === newInvoice.name;
 					}).length;
 					if (duplicateInvoice) {
-						reject('Invoice "' + newInvoice.name + '" is already taken');
-						return;
+						return reject('Invoice "' + newInvoice.name + '" is already taken');
 					}
 					// save new user
 					newInvoice.id = invoices.length ? Math.max(...invoices.map((invoice) => invoice.id)) + 1 : 1;
 					invoices.push(newInvoice);
 					localStorage.setItem('invoices', JSON.stringify(invoices));
 					// respond 200 OK
-					console.log('receveid new data', invoices, newInvoice);
-					resolve({ ok: true, text: () => Promise.resolve() });
-					return;
+					const r = { response: true, success: true };
+					return resolve({ json: () => Promise.resolve(r) });
 				}
 
 				//delete invoice
 				if (url.includes('invoices/') && opts.method === 'DELETE') {
-					//if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-					// find user by id in users array
 					let urlParts = url.split('/');
 					let ids = decodeURIComponent(urlParts[urlParts.length - 1]);
 					let idsArr = ids.split(',');
@@ -92,62 +84,10 @@ export function configureFakeBackend() {
 							return true;
 						});
 					}
-
 					// respond 200 OK
-					resolve({ ok: true, text: () => Promise.resolve() });
-
-					return;
+					const r = { response: true, success: true };
+					return resolve({ json: () => Promise.resolve(r) });
 				}
-
-				// authenticate
-				// if (url.endsWith('/authenticate') && opts.method === 'POST') {
-				//     // get parameters from post request
-				//     let params = JSON.parse(opts.body);
-
-				//     // find if any user matches login credentials
-				//     let filteredUsers = users.filter(user => {
-				//         return user.username === params.username && user.password === params.password;
-				//     });
-
-				//     if (filteredUsers.length) {
-				//         // if login details are valid return user details and fake jwt token
-				//         let user = filteredUsers[0];
-				//         let responseJson = {
-				//             id: user.id,
-				//             username: user.username,
-				//             firstName: user.firstName,
-				//             lastName: user.lastName,
-				//             token: 'fake-jwt-token'
-				//         };
-				//         resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
-				//     } else {
-				//         // else return error
-				//         reject('Username or password is incorrect');
-				//     }
-
-				//     return;
-				// }
-
-				// // get user by id
-				// if (url.match(/\/users\/\d+$/) && opts.method === 'GET') {
-				//     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-				//     if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-				//         // find user by id in users array
-				//         let urlParts = url.split('/');
-				//         let id = parseInt(urlParts[urlParts.length - 1]);
-				//         let matchedUsers = users.filter(user => { return user.id === id; });
-				//         let user = matchedUsers.length ? matchedUsers[0] : null;
-
-				//         // respond 200 OK with user
-				//         resolve({ ok: true, text: () => JSON.stringify(user)});
-				//     } else {
-				//         // return 401 not authorised if token is null or invalid
-				//         reject('Unauthorised');
-				//     }
-
-				//     return;
-				// }
-
 				// pass through any requests not handled above
 				realFetch(url, opts).then((response) => resolve(response));
 			}, 500);

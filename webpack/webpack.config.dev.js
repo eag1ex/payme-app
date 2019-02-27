@@ -1,6 +1,7 @@
 const Path = require('path');
 const Webpack = require('webpack');
 const merge = require('webpack-merge');
+const { PORT } = require('./config');
 const common = require('./webpack.comm.js');
 
 module.exports = merge(common, {
@@ -17,7 +18,7 @@ module.exports = merge(common, {
 		}
 	},
 	devServer: {
-		port: 4000,
+		port: PORT,
 		historyApiFallback: {
 			hot: true,
 			index: '/'

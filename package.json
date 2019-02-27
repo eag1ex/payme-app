@@ -1,10 +1,9 @@
 {
 	"name": "payme",
 	"version": "1.0.0",
-
 	"scripts": {
-		"build": "webpack --config webpack/webpack.config.prod.js  --colors",
-		"start": "webpack-dev-server --open --config webpack/webpack.config.dev.js"
+		"build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js  --colors",
+		"start": "cross-env NODE_ENV=development webpack-dev-server --open --config webpack/webpack.config.dev.js"
 	},
 	"author": "eaglex",
 	"url": "http://eaglex.net",
@@ -42,6 +41,7 @@
 		"babel-preset-vue": "^2.0.2",
 		"clean-webpack-plugin": "^0.1.19",
 		"copy-webpack-plugin": "^4.5.4",
+		"cross-env": "^5.2.0",
 		"css-loader": "^1.0.0",
 		"eslint": "^5.14.1",
 		"eslint-loader": "^2.1.1",

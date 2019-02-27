@@ -29,6 +29,9 @@ Vue.use(VueMaterial);
 
 // setup fake backend
 // configuration in webpack.comm.js
+console.log('-- config');
+console.log('-- ', JSON.stringify(config, false, 1));
+console.log('-- END');
 if (config.server === 'LOCAL_SERVER') configureFakeBackend();
 
 const _v = new Vue({

@@ -1,9 +1,11 @@
 <template>
-  <div id="template-create" class="bg-inverse m-2 p-3">
-    <top-title v-bind:title="'New Invoice'"></top-title>
-    <spinner v-bind:appLoading="loading"></spinner>
+  <div id="template-create"
+class="bg-inverse m-2 p-3">
+    <top-title :title="'New Invoice'" />
+    <spinner :app-loading="loading" />
     <div v-if="!loading">
-      <form novalidate class="md-layout" @submit.prevent="validateInvoice">
+      <form novalidate
+class="md-layout" @submit.prevent="validateInvoice">
         <div class="row w-100">
           <div class="col-2 d-none d-sm-none d-md-block">
             <div class="dollar">
@@ -15,43 +17,46 @@
             <md-field :class="getValidationClass('name')">
               <label>Name</label>
               <md-input
-                name="full-name"
                 id="full-name"
-                autocomplete="given-name"
                 v-model="form.name"
+                name="full-name"
+                autocomplete="given-name"
                 :disabled="sending"
               />
-              <span class="md-error" v-if="!$v.form.name.required">required</span>
+              <span v-if="!$v.form.name.required"
+class="md-error">required</span>
             </md-field>
 
             <md-field :class="getValidationClass('value')">
               <label>Value</label>
               <span class="md-prefix">$</span>
               <md-input
-                name="amount-value"
                 id="amount-value"
-                autocomplete="given-amount"
                 v-model.number="form.value"
+                name="amount-value"
+                autocomplete="given-amount"
                 :disabled="sending"
               />
-              <span class="md-error" v-if="!$v.form.value.required">required</span>
+              <span v-if="!$v.form.value.required"
+class="md-error">required</span>
             </md-field>
             <md-field :class="getValidationClass('email')">
               <label>Email</label>
 
               <md-input
-                name="email"
                 id="alue"
-                autocomplete="given-email"
                 v-model="form.email"
+                name="email"
+                autocomplete="given-email"
                 :disabled="sending"
               />
-              <span class="md-error" v-if="!$v.form.email.required">required</span>
+              <span v-if="!$v.form.email.required"
+class="md-error">required</span>
             </md-field>
 
             <md-field>
               <label>
-                <span class="md-caption">Date:&nbsp;{{niceDate(date)}}</span>
+                <span class="md-caption">Date:&nbsp;{{ niceDate(date) }}</span>
               </label>
             </md-field>
           </div>
@@ -62,11 +67,19 @@
             type="submit"
             class="md-primary p-0 ml-0 md-raised"
             :disabled="sending"
-          >Send Invoice</md-button>
-          <md-button @click="goBack()" class="md-secondary p-0 mx-3">Back</md-button>
+          >
+Send Invoice
+</md-button>
+          <md-button class="md-secondary p-0 mx-3"
+@click="goBack()">
+Back
+</md-button>
         </md-card-actions>
-        <input v-model="date" type="hidden">
-        <md-snackbar :md-active.sync="invoiceSaved">Invoice {{ lastInvoice }} saved!</md-snackbar>
+        <input v-model="date"
+type="hidden">
+        <md-snackbar :md-active.sync="invoiceSaved">
+Invoice {{ lastInvoice }} saved!
+</md-snackbar>
       </form>
     </div>
   </div>
@@ -128,16 +141,25 @@ export default {
   created: function() {
     this.loading = false;
 
-    this.$store.subscribe((mutation, state) => {
-      if (mutation.type.includes("invoice/addInvoiceSuccess")) {
-        this.$router.push("/list");
-        /// reset vals
-        this.lastInvoice = `${this.form.name}, $${this.form.value}`;
-        this.invoiceSaved = true;
-        this.sending = false;
-        this.clearForm();
+    this.$store.subscribe(
+      (mutation, state) => {
+        if (mutation.type.includes("invoice/addInvoiceSuccess")) {
+          this.$router.push("/list");
+          /// reset vals
+          this.lastInvoice = `${this.form.name}, $${this.form.value}`;
+          this.invoiceSaved = true;
+          this.sending = false;
+          this.clearForm();
+        }
+        if (mutation.type.includes("invoice/addInvoiceFailure")) {
+          this.sending = false;
+          this.loading = false;
+        }
+      },
+      err => {
+        console.log("on subscribe err");
       }
-    });
+    );
   },
   methods: {
     ...mapActions("invoice", {
@@ -167,14 +189,16 @@ export default {
       this.date = new Date().getTime(); // non interctive value
     },
     saveInvoice() {
-      const data = cloneDeep(this.form);
-      this.addInvoice(data);
-      this.sending = true;
+      this.loading = true;
+      setTimeout(() => {
+        const data = cloneDeep(this.form);
+        this.addInvoice(data);
+        this.sending = true;
+      }, 300);
     },
     validateInvoice() {
       this.form.date = this.date;
       this.$v.$touch();
-      console.log("validateInvoice invoice", !this.$v.$invalid);
       if (!this.$v.$invalid) {
         this.saveInvoice();
       }
