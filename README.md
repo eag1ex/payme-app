@@ -5,10 +5,19 @@
 * A Vue.js MVC invoicing application, enables you to create/delete/view invoices with properties: `name, value, email, date(static)` . You can view list database and individual item routes. There are 4 page routes: `/home, /list,/item/{id},/create`. Application has been documented.
 
 #### Stack
-* ES6, MVC, Vue.js v2 with Vuex, Vue-materials, Lodash, Webpack,  Bootstrap 4, Mock-backend.
+* ES6, MVC, Vue.js v2 with Vuex, Vue-materials, Lodash, Webpack,  Bootstrap 4, Mock-backend, Firestore/FireBase Google Cloud > hosted on Node.js server, node.js/express.js
 
 #### RESt/API
-* You can use the mock-fake-backend to simulate real API calls.
+* you can switch base api, to use either `LOCAL or REAL` in development environment.
+##### mock-fake-backend
+* to enable go to `webpack\config.js` > set `useServerInDev = "LOCAL"`, then run `npm start`.
+##### LIVE-API
+* to enable go to `webpack\config.js` > set `useServerInDev = "REAL"`, then run `npm start`.
+
+#### Google Firestore/Firebase
+* This application  api runs on serverside firestore database, and it is served via express.js.
+* i have included the api logic in example file `./server_example_invoice-api` at the root of application, sorry i cannot share with you all of node.js server, i use it on my other projects.
+
 
 #### Hierarchy 
 * Application structure
@@ -23,13 +32,14 @@
 **./libs/styles**  `all style/css plugins are maintained here and exported via index.js, except for some of independant styles of components.`
 
 #### Webpack
-* There are 3 files common, development and production.
+* There are 4 files common, development,  production, and config.
 ````
 externals: {
 // this is injected into the application dynamicly, and api/base can be changed per build environment.
 // global app config object
-	config:  JSON.stringify({
-	apiUrl:  API_BASE()
+	config: JSON.stringify({
+			apiUrl: API_BASE(),
+			server: SERVER()
 	})
 },
 ````
