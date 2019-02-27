@@ -5,7 +5,8 @@
 // *********************************
 const port = 4000;
 const localServer = `http://localhost:${port}/local`;
-const liveServer = `http://localhost:5000/api`;
+const liveServer = `https://blooming-journey-82987.herokuapp.com/api`;
+// const liveServer = `http://localhost:5000/api`;
 const useServerInDev = 'REAL'; // LOCAL or REAL
 
 // **********************************
