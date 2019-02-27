@@ -14,16 +14,25 @@
       "editor.formatOnSave": true,
       "editor.tabSize": 2
     },
+    "eslint.enable": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.alwaysShowStatus": true,
+    "eslint.run": "onType",
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      { "language": "vue", "autoFix": true }
+    ],
+    "eslint.options": {
+      "extensions": [".js",".vue"]
+  },
     "editor.formatOnSave": true,
     "prettier.tslintIntegration": true,
     "prettier.stylelintIntegration": true,
     "html.format.enable": false,
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        { "language": "vue", "autoFix": true }
-      ],
     "commentAnchors.workspace.enabled": true,
+    "commentAnchors.workspace.lazyLoad": true,
+    "commentAnchors.workspace.matchFiles": "**/*",
     "commentAnchors.workspace.excludeFiles": "**/{node_modules,.git,.idea,target,out,build,vendor}/**/*" ,   
     "commentAnchors.tags": [
         {"tag": "ANCHOR", "iconColor": "default", "highlightColor": "#A8C023", "backgroundColor": "#49511d", "scope": "file"},
@@ -34,4 +43,5 @@
         {"tag": "REVIEW", "iconColor": "orange", "highlightColor": "#64DD17", "backgroundColor": "#3c7c10", "scope": "workspace"},
         {"tag": "SECTION", "iconColor": "blurple", "highlightColor": "#896afc", "backgroundColor": "#2a186b", "scope": "workspace"}
     ]
+  }
   
