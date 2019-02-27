@@ -27,11 +27,10 @@
       "extensions": [".js",".vue"]
   },
     "editor.formatOnSave": true,
-    "prettier.tslintIntegration": true,
+    "prettier.tslintIntegration": false,
     "prettier.stylelintIntegration": true,
     "html.format.enable": false,
     "commentAnchors.workspace.enabled": true,
-    "commentAnchors.workspace.lazyLoad": true,
     "commentAnchors.workspace.matchFiles": "**/*",
     "commentAnchors.workspace.excludeFiles": "**/{node_modules,.git,.idea,target,out,build,vendor}/**/*" ,   
     "commentAnchors.tags": [
