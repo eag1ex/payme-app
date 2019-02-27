@@ -1,7 +1,7 @@
 /**
  * here we bootstrap the application and import everything, including scss
  */
-
+import config from 'config';
 import Vue from 'vue';
 /// extentions
 import VeeValidate from 'vee-validate';
@@ -28,7 +28,8 @@ Vue.use(VeeValidate);
 Vue.use(VueMaterial);
 
 // setup fake backend
-configureFakeBackend();
+// configuration in webpack.comm.js
+if (config.server === 'LOCAL_SERVER') configureFakeBackend();
 
 const _v = new Vue({
 	el: '#app',

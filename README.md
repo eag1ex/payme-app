@@ -47,6 +47,7 @@ $/ npm run build # will optimize all files for production
 $/ npm install webpack -g
 $/ npm install -g vue-cli # not too sure if required
 ````
+* install `eslint` for VSC
 
 	
 

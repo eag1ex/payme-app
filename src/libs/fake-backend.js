@@ -2,8 +2,13 @@
  * // NOTE
  * {configureFakeBackend}
  * this is our fake server, so we can start production before backend is ready
+ * 
+ * AVAILABLE APIS:
+ * {BASE}/allInvoices GET
+ * {BASE}/invoice/{id} GET
+ * {BASE}/invoices/addInvoice POST
+ * {BASE}/invoices/{id} DELETE
  */
-
 import { invoices } from './mock-data/invoices';
 import { isEmpty } from 'lodash';
 
@@ -65,7 +70,7 @@ export function configureFakeBackend() {
 				}
 
 				//delete invoice
-				if (url.includes('invoices') && opts.method === 'DELETE') {
+				if (url.includes('invoices/') && opts.method === 'DELETE') {
 					//if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
 					// find user by id in users array
 					let urlParts = url.split('/');

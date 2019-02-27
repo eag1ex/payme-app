@@ -2,20 +2,24 @@ const Path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const API_BASE = () => {
 	if (process.env.NODE_ENV === 'development') {
-		return `http://localhost:4000`;
+		return `http://localhost:4000/local`; /// local fake-backend server
 	} else {
-		return ''; // todo
+		return 'http://localhost:5000'; // live server api
 	}
+};
+const SERVER = () => {
+	if (process.env.NODE_ENV === 'development') return 'LOCAL_SERVER';
+	else return 'REAL_SERVER';
 };
 module.exports = {
 	externals: {
 		// global app config object
 		config: JSON.stringify({
-			apiUrl: API_BASE()
+			apiUrl: API_BASE(),
+			server: SERVER()
 		})
 	},
 	entry: {
