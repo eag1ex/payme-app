@@ -9,40 +9,54 @@ import config from 'config';
 import { isEmpty } from 'lodash';
 import { isNumber } from 'util';
 
+function isLocalDevelopment(requestOptions) {
+	if (config.NODE_ENV === 'development') {
+		requestOptions.headers.Authorization = 'localhost 234667788987334';
+		return requestOptions;
+	} else {
+		return requestOptions;
+	}
+}
+
 function addInvoice(invoice) {
-	const requestOptions = {
+	let requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(invoice)
 	};
+	requestOptions = isLocalDevelopment(requestOptions);
+
 	return fetch(`${config.apiUrl}/invoices/add`, requestOptions).then(handleResponse);
 }
 
 function getAll() {
-	const requestOptions = {
+	let requestOptions = {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' }
 	};
-
+	requestOptions = isLocalDevelopment(requestOptions);
 	return fetch(`${config.apiUrl}/allInvoices`, requestOptions).then(handleResponse);
 }
 
 function getOneItem(id) {
-	const requestOptions = {
+	let requestOptions = {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' }
 	};
+	requestOptions = isLocalDevelopment(requestOptions);
 
 	return fetch(`${config.apiUrl}/invoice/${id}`, requestOptions).then(handleResponse);
 }
 
 function _delete(ids) {
 	const _ids = encodeURIComponent(ids.toString());
-	const requestOptions = {
+	let requestOptions = {
 		method: 'DELETE',
 		headers: { 'Content-Type': 'application/json' }
 	};
-	if (isEmpty(_ids)) throw `[_delete] ids are empty`;
+
+	requestOptions = isLocalDevelopment(requestOptions);
+
 	return fetch(`${config.apiUrl}/invoices/${_ids}`, requestOptions).then(handleResponse);
 }
 

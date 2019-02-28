@@ -60,7 +60,7 @@ $/ npm install -g vue-cli # not too sure if required
 * install `eslint` for VSC
 
 #### PAPYME Live Demo
-* Live demo is hosted on heroku node.js server, it has a timeout limit, you may have to loggin again:
+* Live demo is hosted on heroku node.js. *Server has a timeout limit*, you may have to loggin again:
 
 ````
 access:

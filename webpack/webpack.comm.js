@@ -9,7 +9,8 @@ module.exports = {
 		// global app config object
 		config: JSON.stringify({
 			apiUrl: API_BASE(),
-			server: SERVER()
+			server: SERVER(),
+			NODE_ENV: process.env.NODE_ENV
 		})
 	},
 	entry: {
