@@ -18,7 +18,7 @@ const API_BASE = () => {
 		if (useServerInDev === 'REAL') return liveServer;
 		if (useServerInDev === 'LOCAL') return localServer; /// local fake-backend server // or http://localhost:5000/api`
 	} else {
-		return 'http://localhost:5000/api'; // live server api
+		return liveServer; // live server api
 	}
 };
 const SERVER = () => {
