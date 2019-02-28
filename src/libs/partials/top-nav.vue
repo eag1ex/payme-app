@@ -24,15 +24,19 @@
         </md-menu>
         <router-link class="md-title main-logo pl-0 ml-3 mt-1" to="/home">$PAYME</router-link>
       </div>
-      <md-button class="mx-2 d-none d-sm-none d-md-block">
-        <router-link to="/home">Home</router-link>
-      </md-button>
-      <md-button class="mx-2 d-none d-sm-none d-md-block">
-        <router-link to="/list">Invoices</router-link>
-      </md-button>
-      <md-button class="mx-2 d-none d-sm-none d-md-block">
-        <router-link to="/create">Create Invoice</router-link>
-      </md-button>
+
+      <router-link
+        class="p-2 md-theme-default centered md-button mx-2 d-none d-sm-none d-md-block"
+        to="/home"
+      >Home</router-link>
+      <router-link
+        class="p-2 md-theme-default centered md-button mx-2 d-none d-sm-none d-md-block"
+        to="/list"
+      >Invoices</router-link>
+      <router-link
+        class="p-2 md-theme-default centered md-button mx-2 d-none d-sm-none d-md-block md-button"
+        to="/create"
+      >Create Invoice</router-link>
     </md-toolbar>
     <div class="pusher"></div>
   </div>
@@ -53,6 +57,9 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.centered {
+  text-align: center;
+}
 .md-menu-content {
   top: 57px !important;
 }

@@ -7,6 +7,9 @@
 }
 
 #template-list {
+	.md-table-cell.md-table-cell-selection {
+		padding: 1rem !important;
+	}
 	.row-item {
 		td {
 			cursor: pointer;
