@@ -6,9 +6,10 @@
  */
 
 import config from 'config';
-import { isEmpty } from 'lodash';
-import { isNumber } from 'util';
+//import { isEmpty } from 'lodash';
+//import { isNumber } from 'util';
 
+/// authorize to bypass access restrictions for local development with  `useServerInDev = 'REAL'; `
 function isLocalDevelopment(requestOptions) {
 	if (config.NODE_ENV === 'development') {
 		requestOptions.headers.Authorization = 'localhost 234667788987334';
@@ -25,7 +26,6 @@ function addInvoice(invoice) {
 		body: JSON.stringify(invoice)
 	};
 	requestOptions = isLocalDevelopment(requestOptions);
-
 	return fetch(`${config.apiUrl}/invoices/add`, requestOptions).then(handleResponse);
 }
 
@@ -44,7 +44,6 @@ function getOneItem(id) {
 		headers: { 'Content-Type': 'application/json' }
 	};
 	requestOptions = isLocalDevelopment(requestOptions);
-
 	return fetch(`${config.apiUrl}/invoice/${id}`, requestOptions).then(handleResponse);
 }
 
@@ -56,7 +55,6 @@ function _delete(ids) {
 	};
 
 	requestOptions = isLocalDevelopment(requestOptions);
-
 	return fetch(`${config.apiUrl}/invoices/${_ids}`, requestOptions).then(handleResponse);
 }
 
@@ -76,7 +74,6 @@ function handleResponse(data) {
 				const resp = d.response;
 				if (!d.success) {
 					if (d.status === 401) {
-						//	window.alert('response.status 401');
 						window.location.reload(true);
 					}
 					const error = (d && d.message) || d.statusText;
@@ -89,7 +86,6 @@ function handleResponse(data) {
 			}
 		)
 		.catch((err) => {
-			//window.alert(err);
 			console.log('handleResponse error->', err);
 			return Promise.reject(err);
 		});
@@ -100,27 +96,4 @@ export const invoiceService = {
 	getAll,
 	getOneItem,
 	delete: _delete
-	// getById,
-	// update,
 };
-
-// function removeInvoice() {
-// 	localStorage.removeItem('invoices');
-// }
-
-// function getById(id) {
-// 	const requestOptions = {
-// 		method: 'GET',
-// 		headers: { 'Content-Type': 'application/json' }
-// 	};
-// 	return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
-// }
-
-// function update(invoice) {
-// 	const requestOptions = {
-// 		method: 'PUT',
-// 		headers: { 'Content-Type': 'application/json' },
-// 		body: JSON.stringify(invoice)
-// 	};
-// 	return fetch(`${config.apiUrl}/invoices/${invoice.id}`, requestOptions).then(handleResponse);
-// }
