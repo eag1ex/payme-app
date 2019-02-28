@@ -51,6 +51,11 @@ function handleResponse(data) {
 		.json()
 		.then(
 			(d) => {
+				if (d.msg) {
+					if (d.msg.indexOf('No token provided') !== -1) {
+						window.alert('session expired, please login in again.. ./login');
+					}
+				}
 				console.log(`-- handleResponse`);
 				console.log(`--`, JSON.stringify(d, false, 1));
 				console.log(`-- END`);
