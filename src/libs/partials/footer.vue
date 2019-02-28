@@ -2,7 +2,7 @@
   <div class="container-fluid mb-3" v-cloak v-if="!loading">
     <footer class="row d-flex justify-content-center mt-3">
       <div class="col-sm-12 col-md-8 col-lg-10 mt-3 right">
-        <small class="pr-2 right">$PAYME - Invoice Application</small>
+        <small class="pr-2 right">$PAYME - Invoicing Application</small>
         <small class="pr-2 right">
           <i>Creative Common License.</i> &#169;Copyright 2019
         </small>
