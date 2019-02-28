@@ -59,7 +59,18 @@ $/ npm install -g vue-cli # not too sure if required
 ````
 * install `eslint` for VSC
 
-	
+#### PAPYME Live Demo
+* Live demo is hosted on heroku node.js server, it has a timeout limit, you may have to loggin again:
+
+````
+access:
+https://blooming-journey-82987.herokuapp.com/login
+login: payme
+password: payme
+
+````
+####  Conlose
+* debuging is enabled, you can see http request printed in console.
 
 ####  Bugs
 * There is 1 bug in the early vue-materials plugin (still in beta), on /list route, when selecting and deleting you have to re-select again.
