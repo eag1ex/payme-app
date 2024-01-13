@@ -19,12 +19,6 @@ Project portfolio available at [ payme-invoice-vue-js-mvc-app ](https://eaglex.n
 <img src="docs/payme-featured.jpg"/>
 <img src="docs/payme-1.png"/>
 
-#### Snapshot view on github pages
-
-You can preview the project on github pages, but doesnt work well in subdomain namespace.
-
-[ payme-invoice ](https://eag1ex.github.io/payme-app/)
-
 #### Stack
 
 - ES6, MVC, Vue.js v2 with Vuex, Vue-materials (beta), Lodash, Webpack, Bootstrap 4, Mock-backend, Firestore/FireBase Google Cloud > hosted on Node.js server, node.js/express.js
@@ -40,6 +34,19 @@ login: payme
 password: payme
 
 ```
+
+#### Snapshot view on github pages
+
+You can preview project on github pages, but doesnt work well in subdomain namespace.
+
+[ payme-invoice ](https://eag1ex.github.io/payme-app/)
+
+_Server API_
+
+Server api is not available on github pages, it used to be hosed on heroku and firebase free dyno, but heroku discontinued offering that service.<br/>
+
+You can take a look at the demo files for server logic here:
+`/server_example_invoice-api/**`
 
 #### Start/install application
 
@@ -92,13 +99,6 @@ externals: {
 
 - This application api runs on serverside firestore database, and it is served via express.js.
 - i have included api logic in example files `./server_example_invoice-api` at root of application, sorry i cannot share with you all of node.js server, i use it on my other projects.<br/>
-
-**Server API**
-
-Server api is not available on github pages, it used to be hosed on heroku and firebase free dyno, but heroku discontinued offering that service.<br/>
-
-You cna take a look at the demo files for the server logic here:
-`/server_example_invoice-api/**`
 
 #### Hierarchy
 
