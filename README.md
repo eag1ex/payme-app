@@ -6,12 +6,24 @@
 
 - Vue.js MVC invoicing application, enables you to create/delete/view invoices with properties: `name, value, email` . You can view list database and individual item routes. There are 4 page routes: `/home, /list,/item/{id},/create`. Application code has been documented.
 
+#### Depreciation notice
+
+This project is no longer maintained _(because Im busy building new exciting things!)._ If you find something is not working, please check release date of the project, and adjust to corresponding Node.js (even) version, then it should work.
+
+If you are interested in my work and have questions about this project, **please drop me a comment, or email me, thanks!**
+
 #### Preview
 
 Project portfolio available at [ payme-invoice-vue-js-mvc-app ](https://eaglex.net/app/work/payme-invoice-vue-js-mvc-app)
 
 <img src="docs/payme-featured.jpg"/>
 <img src="docs/payme-1.png"/>
+
+#### Snapshot view on github pages
+
+You can preview the project on github pages, but doesnt work well in subdomain namespace.
+
+[ payme-invoice ](https://eag1ex.github.io/payme-app/)
 
 #### Stack
 
@@ -64,7 +76,7 @@ externals: {
 },
 ```
 
-#### RESt/API
+##### RESt/API
 
 - you can switch base api, to use either `LOCAL or REAL` in development environment.
 
@@ -79,7 +91,8 @@ externals: {
 #### Google Firestore/Firebase
 
 - This application api runs on serverside firestore database, and it is served via express.js.
-- i have included api logic in example files `./server_example_invoice-api` at root of application, sorry i cannot share with you all of node.js server, i use it on my other projects.
+- i have included api logic in example files `./server_example_invoice-api` at root of application, sorry i cannot share with you all of node.js server, i use it on my other projects.<br/>
+
 - **Server API**
 
 Server api is not available on github pages, it used to be hosed on heroku and firebase free dyno, but heroku discontinued offering that service.<br/>
