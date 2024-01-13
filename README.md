@@ -8,10 +8,10 @@
 
 #### Preview
 
-Project portfolio available at - [ payme-invoice-vue-js-mvc-app ](https://eaglex.net/app/work/payme-invoice-vue-js-mvc-app)
+Project portfolio available at [ payme-invoice-vue-js-mvc-app ](https://eaglex.net/app/work/payme-invoice-vue-js-mvc-app)
 
-<img src="build/payme-featured.jpg"/>
-<img src="build/payme-1.png"/>
+<img src="docs/payme-featured.jpg"/>
+<img src="docs/payme-1.png"/>
 
 #### Stack
 
