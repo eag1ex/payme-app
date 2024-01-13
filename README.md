@@ -93,7 +93,7 @@ externals: {
 - This application api runs on serverside firestore database, and it is served via express.js.
 - i have included api logic in example files `./server_example_invoice-api` at root of application, sorry i cannot share with you all of node.js server, i use it on my other projects.<br/>
 
-- **Server API**
+**Server API**
 
 Server api is not available on github pages, it used to be hosed on heroku and firebase free dyno, but heroku discontinued offering that service.<br/>
 
