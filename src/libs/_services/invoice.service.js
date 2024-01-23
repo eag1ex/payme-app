@@ -22,7 +22,10 @@ function isLocalDevelopment(requestOptions) {
 function addInvoice(invoice) {
 	let requestOptions = {
 		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Function-Code': process.env.FUNCTION_CODE,
+			'Content-Type': 'application/json'
+		},
 		body: JSON.stringify(invoice)
 	};
 	requestOptions = isLocalDevelopment(requestOptions);
@@ -32,7 +35,10 @@ function addInvoice(invoice) {
 function getAll() {
 	let requestOptions = {
 		method: 'GET',
-		headers: { 'Content-Type': 'application/json' }
+		headers: {
+			'Function-Code': process.env.FUNCTION_CODE,
+			'Content-Type': 'application/json'
+		}
 	};
 	requestOptions = isLocalDevelopment(requestOptions);
 	return fetch(`${config.apiUrl}/allInvoices`, requestOptions).then(handleResponse);
@@ -41,7 +47,10 @@ function getAll() {
 function getOneItem(id) {
 	let requestOptions = {
 		method: 'GET',
-		headers: { 'Content-Type': 'application/json' }
+		headers: {
+			'Function-Code': process.env.FUNCTION_CODE,
+			'Content-Type': 'application/json'
+		}
 	};
 	requestOptions = isLocalDevelopment(requestOptions);
 	return fetch(`${config.apiUrl}/invoice/${id}`, requestOptions).then(handleResponse);
@@ -51,7 +60,10 @@ function _delete(ids) {
 	const _ids = encodeURIComponent(ids.toString());
 	let requestOptions = {
 		method: 'DELETE',
-		headers: { 'Content-Type': 'application/json' }
+		headers: {
+			'Function-Code': process.env.FUNCTION_CODE,
+			'Content-Type': 'application/json'
+		}
 	};
 
 	requestOptions = isLocalDevelopment(requestOptions);

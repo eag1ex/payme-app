@@ -11,3 +11,5 @@ function niceDate(date = 0) {
 export const filters = {
 	niceDate
 };
+
+

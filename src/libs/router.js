@@ -13,6 +13,7 @@ import Page404 from '../404/404Page';
 
 Vue.use(Router);
 export const router = new Router({
+	...(process.env.publicPath ? { base: process.env.publicPath } : {}),
 	mode: 'history',
 	routes: [
 		{ path: '/', component: HomePage },

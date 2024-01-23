@@ -34,7 +34,9 @@ module.exports = merge(common, {
 	},
 	plugins: [
 		new Webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('production')
+			'process.env.NODE_ENV': JSON.stringify('production'),
+			'process.env.publicPath': JSON.stringify('payme-app'),
+			'process.env.FUNCTION_CODE': JSON.stringify('DFKJ884576*_35465fdjfuyrt+_*45@%_=_*56%@!~^')
 		}),
 		new Webpack.optimize.ModuleConcatenationPlugin(),
 		new MiniCssExtractPlugin({
@@ -52,7 +54,7 @@ module.exports = merge(common, {
 			},
 			{
 				test: /\.s?css/i,
-				use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
+				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
 			}
 		]
 	}
