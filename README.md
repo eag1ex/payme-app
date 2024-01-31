@@ -6,26 +6,25 @@
 
 - Vue.js MVC invoicing application, enables you to create/delete/view invoices with properties: `name, value, email` . You can view list database and individual item routes. There are 4 page routes: `/home, /list,/item/{id},/create`. Application code has been documented.
 
+<br/>
+
 #### Depreciation notice and updates
 
 This project is no longer maintained _(because Im busy building new exciting things!)._ If you find something is not working, please check release date of the project, and adjust to corresponding Node.js (even) version, then it should work.
 
 If you are interested in my work and have questions about this project, **please drop me a comment, or email me, thanks!**
 
-
 **Updates**
 
 <i>Project demo is now available on github pages: </i>
-[ >> payme-app <<](https://eag1ex.github.io/payme-app)
+**[ >> payme-app <<](https://eag1ex.github.io/payme-app)**
 
 <br>
 
 <img src="./screens/payme-2.png" width="400" />
 <img src="./screens/payme-featured.jpg" width="400" />
 <br>
-
-
-
+<br/>
 
 #### Stack
 
@@ -35,11 +34,13 @@ If you are interested in my work and have questions about this project, **please
 
 - Live demo is hosted on heroku node.js. _Server has a timeout limit_, you may have to logging again:
 
-```
-access:
-https://blooming-journey-82987.herokuapp.com/login
-login: payme
-password: payme
+```sh
+
+## INACTIVE
+# access:
+# https://blooming-journey-82987.herokuapp.com/login
+# login: payme
+# password: payme
 
 ```
 
